@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ShowItem from './ShowItem'
-
+import { Card } from 'semantic-ui-react'
 
 // Need SORT and FILTER functions!
 
@@ -9,10 +9,13 @@ class ShowList extends React.Component {
 
   render() {
     const shows = this.props.myShows.map( show => {
-      return <ShowItem show={show} key={show.id}/> })
+      return <ShowItem show={show} key={show.id}/>})
     return(
       <div>
-        {shows}
+      <h1>My Shows</h1>
+        <Card.Group>
+          {shows}
+        </Card.Group>
       </div>
     )
   }

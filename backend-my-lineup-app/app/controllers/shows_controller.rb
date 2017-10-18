@@ -24,10 +24,10 @@ class ShowsController < ApplicationController
 
   def create
     @user = User.find(1)
-    if params[:network][:name]
-      network = params[:network][:name]
+    if params[:network] == nil
+      network = params[:webChannel][:name]
     else
-      network = params[:webchannel][:name]
+      network = params[:network][:name]
     end
     show = Show.find_or_create_by(
           id: params[:id],

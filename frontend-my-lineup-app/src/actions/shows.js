@@ -108,7 +108,7 @@ export function removeEpisode(id) {
   }
 }
 
-export function fetchMyEpisodes(id) {
+export function fetchMyLineup(id) {
   return function(dispatch) {
     dispatch(fetchingShows())
     fetch(`http://localhost:3000/${id}/episodes`)
@@ -123,8 +123,10 @@ export function fetchShowEpisodes(id) {
   return function(dispatch) {
     fetch(`https://api.tvmaze.com/shows/${id}/episodes`)
       .then(res => res.json())
+      .then(json => json.reverse())
         .then(json => {
           dispatch(fetchedShowEpisodes(json))
         })
   }
 }
+

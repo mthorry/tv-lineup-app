@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { searchShows, clearResults } from '../../actions/search'
 import SearchResults from './SearchResults'
+import { Button, Form, Input } from 'semantic-ui-react'
 
 class SearchContainer extends React.Component {
 
@@ -30,12 +31,16 @@ class SearchContainer extends React.Component {
   render() {
     return(
       <div>
-        <p>The SearchContainer</p>
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="Search for a show" onChange={this.handleInput} value={this.state.input}/>
-          <input type="submit" value="Search"/>
+        <h1>Show Search</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Field>
+            <Input type="text" icon='search' placeholder="Search for a show" onChange={this.handleInput} value={this.state.input}/>
+          </Form.Field>
+          <Form.Field>
+            <Button basic color='blue' type="submit">Search</Button>
+          </Form.Field>
+        </Form>
           { this.props.results ? <SearchResults history={this.props.history}/> : null }
-        </form>
       </div>
     )
   }

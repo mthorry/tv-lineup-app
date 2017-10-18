@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { removeShow } from '../../actions/shows'
 import { Link } from 'react-router-dom'
+import { Button, Card } from 'semantic-ui-react'
 
 class ShowItem extends React.Component {
 
@@ -16,18 +17,23 @@ class ShowItem extends React.Component {
     let summary = ""
     if (s.summary) {summary = s.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "")}
     return(
-        <li id={s.id}>
-          <h3>{s.title}</h3>
+      <Card>
+        <Card.Content id={s.id}>
+          <Card.Header as='h3'>{s.title}</Card.Header>
           <img src={s.img} alt={s.title} width="250"/>
-          { s.status === "Running" ? <p>Airs {s.air_day}s at {s.air_time} on {s.network}</p> : <p><strong>{s.status}</strong></p> }
+          { s.status === "Running" ? <h4>Airs {s.air_day}s at {s.air_time} on {s.network}</h4> : <h4>{s.status}</h4> }
           <p>Summary: {summary}</p>
-          <p>Genre: {s.genre}</p>
-          <p>Rating: {s.rating}</p>
-          <a href={s.url} target="_blank">| Official Website |</a>
-          <Link to={`/shows/${s.id}/${title}`}>| Show Info |</Link>
-          <button onClick={this.handleClick}>Remove from my shows</button>
-          <p></p>
-        </li>
+          <Card.Description>Genre: {s.genre}</Card.Description>
+          <Card.Description>Rating: {s.rating}</Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+        <div className='ui three buttons'>
+          <Button basic color='grey'><Link to={`/shows/${s.id}/${title}`}>Info</Link></Button>
+          <Button basic color='teal' as='a' href={s.url} target='_blank'>Website</Button>
+          <Button basic color='yellow' onClick={this.handleClick}>Remove</Button>
+          </div>
+        </Card.Content>
+      </Card>
     )
   }
 }

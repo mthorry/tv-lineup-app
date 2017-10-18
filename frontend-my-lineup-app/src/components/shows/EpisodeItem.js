@@ -1,17 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addEpisode, removeEpisode, fetchMyEpisodes } from '../../actions/shows'
+import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/shows'
+import { Card, Button } from 'semantic-ui-react'
 
 class EpisodeItem extends React.Component {
 
-  markWatched = (e) => {
+  addEpisode = (e) => {
     e.preventDefault()
     const episode = JSON.stringify({show: this.props.episode,
       show_id: this.props.showId})
     this.props.addEpisode(episode)
     }
 
-  markUnwatched = (e) => {
+  removeEpisode = (e) => {
     e.preventDefault()
     const id = JSON.stringify({id: this.props.episode.id})
     this.props.removeEpisode(id)
@@ -22,17 +23,21 @@ class EpisodeItem extends React.Component {
     let summary = ""
     if (ep.summary) {summary = ep.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "")}
     return(
-      <li>
-       { ep.image ? <img src={ep.image.original} alt={ep.name} width="200"/> : null }
-        <h3>{ep.name}</h3>
-        <p>Season {ep.season}: Episode {ep.number}</p>
-        <p>Aired: {ep.airdate}</p>
-        <p>{summary}</p>
-        <a href={ep.url} target="_blank">More Info</a>
-        { this.props.watched.length ? <button onClick={this.markUnwatched}>Mark as Unwatched</button> : <button onClick={this.markWatched}>Mark as Watched</button> }
-        <p></p>
-        <br/>
-      </li>
+      <Card>
+        <Card.Content>
+          { ep.image ? <img src={ep.image.original} alt={ep.name} width="250"/> : null }
+          <Card.Header as='h3'>{ep.name}</Card.Header>
+          <Card.Description>Season {ep.season}: Episode {ep.number}</Card.Description>
+          <Card.Description>Airs {ep.airdate} at {ep.airtime}</Card.Description>
+          <Card.Description>{summary}</Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+          <div className='ui two buttons'>
+          <Button basic color='teal' as='a' href={ep.url} target='_blank'>More Info</Button>
+          { this.props.added.length ? <Button basic color='yellow' onClick={this.removeEpisode} >Remove</Button> : <Button basic color='olive' onClick={this.addEpisode}>Add to Lineup</Button> }
+          </div>
+        </Card.Content>
+      </Card>
     )
   }
 }
@@ -42,8 +47,8 @@ function mapDispatchToProps(dispatch) {
     addEpisode: (episode) => {
       dispatch(addEpisode(episode))
     },
-    fetchMyEpisodes: (id) => {
-      dispatch(fetchMyEpisodes(id))
+    fetchMyLineup: (id) => {
+      dispatch(fetchMyLineup(id))
     },
     removeEpisode: (id) => {
       dispatch(removeEpisode(id))
@@ -53,9 +58,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    myEpisodes: state.show.myEpisodes,
+    myLineup: state.show.myLineup,
     isFetching: state.show.isFetching
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(EpisodeItem)
 

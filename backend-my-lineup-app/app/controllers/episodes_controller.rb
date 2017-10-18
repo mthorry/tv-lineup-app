@@ -6,12 +6,16 @@ class EpisodesController < ApplicationController
     else
       image = nil
     end
+    show = Show.find(params[:show_id])
     episode = Episode.find_or_create_by(
       id: params[:show][:id],
+      show_title: show.title,
       title: params[:show][:name],
       season: params[:show][:season],
       number: params[:show][:number],
       airdate: params[:show][:airdate],
+      airtime: params[:show][:airtime],
+      airstamp: params[:show][:airstamp],
       runtime: params[:show][:runtime],
       img: image,
       url: params[:show][:url],
@@ -31,8 +35,9 @@ class EpisodesController < ApplicationController
 
   def destroy
     episode = Episode.find(params[:id])
+    user = User.find(1)
     episode.destroy
-    render json: User.first.episodes
+    render json: user.episodes
   end
 end
 

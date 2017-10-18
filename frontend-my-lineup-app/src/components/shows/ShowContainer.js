@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchShows, fetchMyEpisodes } from '../../actions/shows'
+import { fetchShows, fetchMyLineup } from '../../actions/shows'
 import ShowList from './ShowList'
 import ShowPage from './ShowPage'
 import ShowCalendar from './ShowCalendar'
@@ -11,7 +11,7 @@ class ShowContainer extends React.Component {
 
   componentDidMount() {
     this.props.fetchShows(1)
-    this.props.fetchMyEpisodes(1)
+    this.props.fetchMyLineup(1)
   }
 
   render() {
@@ -32,8 +32,8 @@ function mapDispatchToProps(dispatch) {
     fetchShows: (id) => {
       dispatch(fetchShows(id))
     },
-    fetchMyEpisodes: (id) => {
-      dispatch(fetchMyEpisodes(id))
+    fetchMyLineup: (id) => {
+      dispatch(fetchMyLineup(id))
     }
   }
 }
@@ -41,7 +41,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     myShows: state.show.myShows,
-    myEpisodes: state.show.myEpisodes,
+    myLineup: state.show.myLineup,
     isFetching: state.show.isFetching
   }
 }

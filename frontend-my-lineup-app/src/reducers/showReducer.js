@@ -1,4 +1,4 @@
-function showReducer(state = { isFetching: false, myShows: [], myEpisodes: [], showEpisodes: []}, action) {
+function showReducer(state = { isFetching: false, myShows: [], myLineup: [], showEpisodes: []}, action) {
   switch (action.type) {
 
     case "REMOVE_SHOW":
@@ -8,7 +8,7 @@ function showReducer(state = { isFetching: false, myShows: [], myEpisodes: [], s
       return Object.assign({}, state, {myShows: action.payload, isFetching: false} )
 
     case "FETCHED_MY_EPISODES":
-      return Object.assign({}, state, {myEpisodes: action.payload, isFetching: false} )
+      return Object.assign({}, state, {myLineup: action.payload, isFetching: false} )
 
     case "FETCHED_SHOW_EPISODES":
       return Object.assign({}, state, {showEpisodes: action.payload, isFetching: false} )

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { addShow, clearResults } from '../../actions/search'
 import React from 'react'
+import { Card, Button } from 'semantic-ui-react'
 
 class SearchItem extends React.Component {
 
@@ -15,18 +16,22 @@ class SearchItem extends React.Component {
     const s = this.props.show.show
     let summary = ""
     if (s.summary) { summary = s.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "")}
+    let network = ""
+    if (s.network) { network = s.network.name } else { network = s.webChannel.name }
 
     return(
-      <li key={s.id}>
-        <h3>{s.name}</h3>
-        { s.image ? <img src={s.image.medium} alt={s.name} /> : null }
-        { s.webChannel ? <p>Watch on {s.webChannel.name}</p> : null }
-        { s.status === "Running" ? <p>Airs {s.schedule.days[0]}s at {s.schedule.time} on {s.network.name}</p> : <p><strong>{s.status}</strong></p>}
-        <p>Summary: {summary}</p>
-        <p>Genre: {s.genres.join(", ")}</p>
-        <button onClick={this.handleClick}>Add to My Shows</button>
-        <br/>
-      </li>
+      <Card key={s.id}>
+        <Card.Content>
+        <h2>{s.name}</h2>
+        { s.image ? <img src={s.image.medium} alt={s.name} width='275px'/> : null }
+        { s.status === "Running" ? <h3>Airs {s.schedule.days[0]}s at {s.schedule.time} on {network}</h3> : <h3><strong>{s.status}</strong></h3>}
+        <h5>Summary: {summary}</h5>
+        <p>Genres: {s.genres.join(", ")}</p>
+        </Card.Content>
+        <Card.Content extra>
+          <Button basic color='teal' onClick={this.handleClick}>Add to My Shows</Button>
+        </Card.Content>
+      </Card>
     )}
 }
 

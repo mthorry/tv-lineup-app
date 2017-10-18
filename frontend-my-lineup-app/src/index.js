@@ -10,6 +10,7 @@ import showReducer from './reducers/showReducer'
 import searchReducer from './reducers/searchReducer'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import 'semantic-ui-css/semantic.min.css';
 
 const rootReducer = combineReducers({ search: searchReducer, show: showReducer })
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))

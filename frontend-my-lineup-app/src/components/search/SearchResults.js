@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SearchItem from './SearchItem'
+import { Card, Button, Form } from 'semantic-ui-react'
 
 class SearchResults extends React.Component {
 
@@ -12,9 +13,13 @@ class SearchResults extends React.Component {
       <div>
       { this.props.isFetching ? "Searching..." : null }
         { this.props.results.length === 0 ? null : <div>
+          <p></p>
           <h2>Search Results</h2>
-          <ul>{searchItems}</ul>
-          </div> }
+            <Card.Group>
+              {searchItems}
+            </Card.Group>
+          </div>
+        }
       </div>
     )
   }

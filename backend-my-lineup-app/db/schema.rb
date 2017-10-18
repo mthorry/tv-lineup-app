@@ -17,10 +17,13 @@ ActiveRecord::Schema.define(version: 20171014142518) do
 
   create_table "episodes", force: :cascade do |t|
     t.string "title"
+    t.string "show_title"
     t.integer "season"
     t.integer "number"
     t.string "airdate"
-    t.string "runtime"
+    t.string "airtime"
+    t.string "airstamp"
+    t.integer "runtime"
     t.string "img"
     t.string "url"
     t.text "summary"

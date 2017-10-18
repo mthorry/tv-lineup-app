@@ -24,7 +24,7 @@ class EpisodeContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     myShows: state.show.myShows,
-    myEpisodes: state.show.myEpisodes,
+    myLineup: state.show.myLineup,
     showEpisodes: state.show.showEpisodes
   }
 }

@@ -1,3 +1,5 @@
+import { fetchingResults } from './search'
+
 function fetchingShows() {
   return {
     type: "FETCHING_SHOWS"
@@ -130,3 +132,41 @@ export function fetchShowEpisodes(id) {
   }
 }
 
+export function addSuggestedShow(id) {
+  return function (dispatch) {
+    const body = JSON.stringify(id)
+    return fetch("http://localhost:3000/suggested", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        'body': body
+    })
+      .then(res => res.json())
+        .then((json) => {
+          dispatch(addShow(json))
+        })
+  }
+
+}
+
+export function addShow(show) {
+  return function (dispatch) {
+    dispatch(fetchingResults())
+    const body = JSON.stringify(show)
+    return fetch("http://localhost:3000/shows", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        'body': body
+    })
+      .then(res => res.json())
+        .then((json) => {
+          dispatch(fetchedShows(json))
+        })
+  }
+
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { removeShow } from '../../actions/shows'
-import { Grid, Image, Button } from 'semantic-ui-react'
+import { Grid, Button } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
 
 class ShowPage extends React.Component {
@@ -15,8 +15,8 @@ class ShowPage extends React.Component {
   render() {
     const id = this.props.match.params.id
     const show = (this.props.myShows.filter( show => {return show.id == id}))[0]
-    let summary = ""
-    // if (show.summary) {summary = show.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "")}
+    // let summary = ""
+    // if (show.summary.length > 1) {summary = show.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "")}
 
     if (show === undefined) {return(<p>loading show info...</p>)} else {return(<Grid celled id={show.id}>
           <Grid.Row>

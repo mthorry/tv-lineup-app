@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SearchItem from './SearchItem'
-import { Card, Button, Form } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 class SearchResults extends React.Component {
 

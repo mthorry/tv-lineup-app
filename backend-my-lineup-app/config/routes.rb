@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   get '/:id/shows', to: 'shows#index'
   post '/shows', to: 'shows#create'
+  post '/suggested', to: 'shows#find_suggested'
   delete '/shows', to: 'shows#destroy'
+  post '/recommend', to: 'shows#recommended'
 
   get '/:id/episodes', to: 'episodes#index'
   post '/episodes', to: 'episodes#create'

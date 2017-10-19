@@ -6,8 +6,6 @@ require('react-big-calendar/lib/css/react-big-calendar.css');
 
 BigCalendar.momentLocalizer(moment)
 
-let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
-
 class ShowCalendar extends React.Component {
 
   handleSelectEvent = (episode) => {
@@ -19,7 +17,6 @@ class ShowCalendar extends React.Component {
 
       let events = myLineup.map( episode => {
       let d = new Date(episode.airstamp)
-      let year = d.getFullYear()
         return {
           title: episode.show_title + ": " + episode.title,
           startDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()),
@@ -64,7 +61,6 @@ class ShowCalendar extends React.Component {
     )
   }
 }
-
 
 
 function mapStateToProps(state) {

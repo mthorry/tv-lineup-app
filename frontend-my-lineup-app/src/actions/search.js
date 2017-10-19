@@ -1,6 +1,5 @@
-import { fetchedShows } from './shows'
 
-function fetchingResults() {
+export function fetchingResults() {
   return {
     type: "FETCHING_RESULTS"
   }
@@ -41,22 +40,3 @@ export function searchShows(search) {
 
 }
 
-export function addShow(show) {
-  return function (dispatch) {
-    dispatch(fetchingResults())
-    const body = JSON.stringify(show)
-    return fetch("http://localhost:3000/shows", {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        'body': body
-    })
-      .then(res => res.json())
-        .then((json) => {
-          dispatch(fetchedShows(json))
-        })
-  }
-
-}

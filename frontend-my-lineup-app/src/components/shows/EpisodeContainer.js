@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchShowEpisodes, sortEpisodes } from '../../actions/shows'
 import EpisodeList from './EpisodeList'
+import SuggestedList from './SuggestedList'
+import { Divider } from 'semantic-ui-react'
 
 class EpisodeContainer extends React.Component {
 
@@ -15,7 +17,12 @@ class EpisodeContainer extends React.Component {
     const id = this.props.match.params.id
     return(
       <div>
-        <EpisodeList show={name} id={id} />
+        <br/>
+        <Divider horizontal >Episodes</Divider>
+          <EpisodeList show={name} id={id} />
+        <br/>
+        <Divider horizontal >Suggested Shows</Divider>
+          <SuggestedList show={name} id={id} />
       </div>
     )
   }

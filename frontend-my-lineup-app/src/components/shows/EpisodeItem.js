@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/shows'
-import { Card, Button } from 'semantic-ui-react'
+import { Card, Button, Image } from 'semantic-ui-react'
 
 class EpisodeItem extends React.Component {
 
@@ -25,7 +25,7 @@ class EpisodeItem extends React.Component {
     return(
       <Card>
         <Card.Content>
-          { ep.image ? <img src={ep.image.original} alt={ep.name} width="250"/> : null }
+          { ep.image ? <Image src={ep.image.original} alt={ep.name}/> : null }
           <Card.Header as='h3'>{ep.name}</Card.Header>
           <Card.Description>Season {ep.season}: Episode {ep.number}</Card.Description>
           <Card.Description>Airs {ep.airdate} at {ep.airtime}</Card.Description>

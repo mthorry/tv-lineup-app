@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { sortEpisodes } from '../../actions/shows'
 import EpisodeItem from './EpisodeItem'
-import { Card, Button } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 class EpisodeList extends React.Component {
 
@@ -18,8 +18,6 @@ class EpisodeList extends React.Component {
 
     return(
       <div>
-        <h2>Episodes</h2>
-        <Button onClick={this.handleSort}>Oldest First</Button>
         <Card.Group>
         {episodes}
         </Card.Group>

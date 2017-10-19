@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { fetchShows, fetchMyLineup } from '../../actions/shows'
 import ShowList from './ShowList'
 import ShowPage from './ShowPage'
-import ShowCalendar from './ShowCalendar'
 import EpisodeContainer from './EpisodeContainer'
 
 class ShowContainer extends React.Component {
@@ -17,11 +16,10 @@ class ShowContainer extends React.Component {
   render() {
     return(
       <div>
-      { this.props.isFetching ? "Getting shows..." : null }
         <Route exact path='/shows' component={ShowList} />
+      { this.props.isFetching ? "Getting shows..." : null }
         <Route exact path='/shows/:id/:name' component={ShowPage} />
         <Route exact path='/shows/:id/:name' component={EpisodeContainer} />
-        <Route exact path='/shows/calendar' component={ShowCalendar} />
       </div>
     )
   }

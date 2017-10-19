@@ -14,6 +14,20 @@ class ShowsController < ApplicationController
     render json: results
   end
 
+  def find_suggested
+    id = params[:_json]
+    response = RestClient::Request.execute(
+      method: :get,
+      url: "http://api.tvmaze.com/lookup/shows?thetvdb=#{id}",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    )
+    results = JSON.parse(response)
+    render json: results
+  end
+
 
   def index
     user = User.find(params[:id])
@@ -52,6 +66,23 @@ class ShowsController < ApplicationController
     show = Show.find(params[:_json])
     show.destroy
     render json: User.first.shows
+  end
+
+  def recommended
+    show = params[:_json]
+    url = "https://api.trakt.tv/shows/#{show}/related?extended=full"
+    response = RestClient::Request.execute(
+      method: :get,
+      url: url,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'trakt-api-version': '2',
+        'trakt-api-key': '8de248cf5d4040db92f61ab373123612d998328b4d63540b45991fce09e88d64'
+      }
+    )
+    results = JSON.parse(response)
+    render json: results, status: 200
   end
 
 end

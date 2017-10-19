@@ -13,9 +13,9 @@ class ShowItem extends React.Component {
 
   render() {
     const s = this.props.show
-    const title = s.title.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '').split(" ").join("-").replace("--", "-")
+    const title = s.title.toLowerCase().replace(/[&#,+()$~%.'":*?<>{}]/g, '').split(" ").join("-").replace("--", "-")
     let summary = ""
-    if (s.summary) {summary = s.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "")}
+    if (s.summary) {summary = s.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "").substring(0,500)}
     return(
       <Card>
         <Card.Content id={s.id}>

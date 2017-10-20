@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { addShow } from '../../actions/shows'
 import { clearResults } from '../../actions/search'
 import React from 'react'
-import { Card, Button, Image } from 'semantic-ui-react'
+import { Card, Button, Image, Icon } from 'semantic-ui-react'
 
 class SearchItem extends React.Component {
 
@@ -30,7 +30,7 @@ class SearchItem extends React.Component {
         <p>Genres: {s.genres.join(", ")}</p>
         </Card.Content>
         <Card.Content extra>
-          <Button basic color='teal' onClick={this.handleClick}>Add to My Shows</Button>
+          <Button basic color='teal' onClick={this.handleClick} icon='tv' content='Add to my Shows' attached='bottom'/>
         </Card.Content>
       </Card>
     )}

@@ -27,6 +27,13 @@ export function fetchedShowEpisodes(episodes) {
   }
 }
 
+export function fetchedOnTonight(shows) {
+  return {
+    type: "FETCHED_ON_TONIGHT",
+    payload: shows
+  }
+}
+
 export function sortedEpisodes(episodes) {
   return {
     type: "SORTED_SHOW_EPISODES",
@@ -123,6 +130,7 @@ export function fetchMyLineup(id) {
 
 export function fetchShowEpisodes(id) {
   return function(dispatch) {
+    dispatch(fetchingShows())
     fetch(`https://api.tvmaze.com/shows/${id}/episodes`)
       .then(res => res.json())
       .then(json => json.reverse())
@@ -168,5 +176,17 @@ export function addShow(show) {
           dispatch(fetchedShows(json))
         })
   }
-
 }
+
+export function fetchOnTonight() {
+  return function(dispatch) {
+    dispatch(fetchingShows())
+    fetch("http://api.tvmaze.com/schedule")
+      .then(res => res.json())
+      .then(json => json.reverse())
+        .then(json => {
+          dispatch(fetchedOnTonight(json))
+        })
+  }
+}
+

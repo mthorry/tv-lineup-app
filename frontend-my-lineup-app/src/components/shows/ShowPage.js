@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { removeShow } from '../../actions/shows'
-import { Grid, Button } from 'semantic-ui-react'
+import { Grid, Button, Icon } from 'semantic-ui-react'
 // import { Link } from 'react-router-dom'
 
 class ShowPage extends React.Component {
@@ -29,8 +29,8 @@ class ShowPage extends React.Component {
             <p>Summary: {show.summary}</p>
             <p>Genre: {show.genre}</p>
             <p>Rating: {show.rating}</p>
-            { show.url ? <Button basic color='teal' as='a' href={show.url} target='_blank'> Official Website</Button> : null }
-            <Button basic color='yellow' onClick={this.handleClick}>Remove</Button>
+            { show.url ? <Button basic color='teal' as='a' href={show.url} target='_blank' icon='external' content='Official Website'/> : null }
+            <Button basic color='yellow' icon='remove' content='Remove' onClick={this.handleClick}/>
           </Grid.Column>
           </Grid.Row>
         </Grid>)}

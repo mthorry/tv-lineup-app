@@ -29,14 +29,14 @@ class SuggestedList extends React.Component {
                 recommend: json
               }))}
             })
-          .catch(error => (console.log("there was a problem:", error)))
+          .catch(error => (console.error("there was a problem:", error)))
   }
   render(){
     let titles = this.props.myShows.map(show => show.title)
     let recs = "getting suggestions..."
     if (this.state.recommend) { recs = this.state.recommend.map( show => titles.includes(show.title) ? null : <Card key={show.ids.tvdb} >
       <Card.Content>
-        <h4>{show.title}</h4>
+        <h3>{show.title}</h3>
         { show.airs.day ? <h5>Airs: {show.airs.day} at {show.airs.time}</h5> : <h5>{show.status}</h5> }
         <Card.Description>Summary: {show.overview.substring(0,250)} ... </Card.Description>
       </Card.Content>
@@ -48,12 +48,12 @@ class SuggestedList extends React.Component {
       </Card.Content>
       <Card.Content extra>
       <div className='ui two buttons'>
-        <Button basic color='teal' as='a' href={show.homepage} target="_blank">Website</Button>
-        <Button basic color='olive' onClick={this.handleClick} id={show.ids.tvdb}>Add Show</Button>
+        <Button basic color='teal' as='a' href={show.homepage} target="_blank" content='Website' icon='external'/>
+        <Button basic color='olive' onClick={this.handleClick} id={show.ids.tvdb} content='Add Show' icon='add'/>
       </div>
       </Card.Content>
       </Card>)
-     }
+     } else { recs = <p>Sorry, no recommendations here 😭</p> }
 
     return(
       <div>
@@ -69,9 +69,6 @@ class SuggestedList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    myLineup: state.show.myLineup,
-    showEpisodes: state.show.showEpisodes,
-    isFetching: state.show.isFetching,
     myShows: state.show.myShows
   }
 }

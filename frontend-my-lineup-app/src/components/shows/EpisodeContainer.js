@@ -18,10 +18,10 @@ class EpisodeContainer extends React.Component {
     return(
       <div>
         <br/>
-        <Divider horizontal >Episodes</Divider>
+        <Divider horizontal ><h2>Episodes</h2></Divider>
           <EpisodeList show={name} id={id} />
         <br/>
-        <Divider horizontal >Suggested Shows</Divider>
+        <Divider horizontal ><h2>Suggested Shows</h2></Divider>
           <SuggestedList show={name} id={id} />
       </div>
     )

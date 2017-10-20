@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ShowItem from './ShowItem'
-import { Card } from 'semantic-ui-react'
+import { Card, Divider } from 'semantic-ui-react'
 
 // Need SORT and FILTER functions!
 
@@ -12,7 +12,7 @@ class ShowList extends React.Component {
       return <ShowItem show={show} key={show.id}/>})
     return(
       <div>
-      <h1>My Shows</h1>
+      <Divider horizontal><h1>My Shows</h1></Divider>
         <Card.Group>
           {shows}
         </Card.Group>

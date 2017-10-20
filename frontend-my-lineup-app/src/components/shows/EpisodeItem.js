@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/shows'
-import { Card, Button, Image } from 'semantic-ui-react'
+import { Card, Button, Image, Icon } from 'semantic-ui-react'
 
 class EpisodeItem extends React.Component {
 
@@ -26,15 +26,17 @@ class EpisodeItem extends React.Component {
       <Card>
         <Card.Content>
           { ep.image ? <Image src={ep.image.original} alt={ep.name}/> : null }
+          <p></p>
           <Card.Header as='h3'>{ep.name}</Card.Header>
           <Card.Description>Season {ep.season}: Episode {ep.number}</Card.Description>
           <Card.Description>Airs {ep.airdate} at {ep.airtime}</Card.Description>
+          <p></p>
           <Card.Description>{summary}</Card.Description>
         </Card.Content>
         <Card.Content extra>
           <div className='ui two buttons'>
-          <Button basic color='teal' as='a' href={ep.url} target='_blank'>More Info</Button>
-          { this.props.added.length ? <Button basic color='yellow' onClick={this.removeEpisode} >Remove</Button> : <Button basic color='olive' onClick={this.addEpisode}>Add to Lineup</Button> }
+          <Button basic color='teal' as='a' href={ep.url} target='_blank' content='More Info' icon='external'/>
+          { this.props.added.length ? <Button basic color='yellow' onClick={this.removeEpisode} content='Remove' icon='remove from calendar'/> : <Button basic color='olive' onClick={this.addEpisode} content='My Lineup' icon='add to calendar' /> }
           </div>
         </Card.Content>
       </Card>

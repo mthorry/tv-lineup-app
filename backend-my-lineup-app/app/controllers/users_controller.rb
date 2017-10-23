@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
 
   def create
-    user = User.new(username: params[:username], password: params[:password])
+    user = User.new(username: params[:username], password: params[:password], genres: params[:genres])
+byebug
     if user.save
       token = encode_token({user_id: user.id})
-      render json: {user: user, jwt: token}
+      render json: {user_id: user.id, jwt: token}
     else
       render json: { message: "Error" }
     end

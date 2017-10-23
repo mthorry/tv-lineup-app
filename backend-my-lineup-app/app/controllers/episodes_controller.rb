@@ -1,28 +1,52 @@
 class EpisodesController < ApplicationController
   def create
     user = User.find(1)
-    if params[:show][:image]
-      image = params[:show][:image][:original]
+
+    if params[:episode][:image]
+      image = params[:episode][:image][:original]
+    elsif params[:image]
+      image = params[:image][:original]
     else
       image = nil
     end
-    show = Show.find(params[:show_id])
-    episode = Episode.find_or_create_by(
-      id: params[:show][:id],
-      show_title: show.title,
-      title: params[:show][:name],
-      season: params[:show][:season],
-      number: params[:show][:number],
-      airdate: params[:show][:airdate],
-      airtime: params[:show][:airtime],
-      airstamp: params[:show][:airstamp],
-      runtime: params[:show][:runtime],
-      img: image,
-      url: params[:show][:url],
-      summary: params[:show][:summary],
-      show_id: params[:show_id]
-    )
-    episode.users << user
+
+    if params[:show_id]
+      show = Show.find(params[:show_id])
+      episode = Episode.find_or_create_by(
+        id: params[:episode][:id],
+        show_title: show.title,
+        title: params[:episode][:name],
+        season: params[:episode][:season],
+        number: params[:episode][:number],
+        airdate: params[:episode][:airdate],
+        airtime: params[:episode][:airtime],
+        airstamp: params[:episode][:airstamp],
+        runtime: params[:episode][:runtime],
+        img: image,
+        url: params[:episode][:url],
+        summary: params[:episode][:summary],
+        show_id: params[:show_id]
+      )
+      episode.users << user
+    else
+      show = Show.find(params[:show][:id])
+      episode = Episode.find_or_create_by(
+        id: params[:id],
+        show_title: show.title,
+        title: params[:name],
+        season: params[:season],
+        number: params[:number],
+        airdate: params[:airdate],
+        airtime: params[:airtime],
+        airstamp: params[:airstamp],
+        runtime: params[:runtime],
+        img: image,
+        url: params[:url],
+        summary: params[:summary],
+        show_id: params[:show][:id]
+      )
+      episode.users << user
+    end
 
     render json: user.episodes
   end

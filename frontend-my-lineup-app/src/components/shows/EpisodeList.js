@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { sortEpisodes } from '../../actions/shows'
 import EpisodeItem from './EpisodeItem'
-import { Card, Button, Icon } from 'semantic-ui-react'
+import { Card, Button, Icon, Loader } from 'semantic-ui-react'
 
 class EpisodeList extends React.Component {
 
@@ -40,8 +39,8 @@ class EpisodeList extends React.Component {
 
 
   render(){
-    let episodes = "getting episodes..."
-    if (this.state.displayedItems) {episodes = this.state.displayedItems.map( episode => <EpisodeItem key={episode.id} episode={episode} showId={this.props.id} added={this.props.myLineup.filter(myEpisode => myEpisode.id == episode.id)} /> )}
+    let episodes = <Loader active inline='centered' size='large'/>
+    if (this.state.displayedItems && this.props.myLineup) {episodes = this.state.displayedItems.map( episode => <EpisodeItem key={episode.id} episode={episode} showId={this.props.id} added={this.props.myLineup.filter(myEpisode => myEpisode.id == episode.id)} /> )}
 
     return(
       <div>
@@ -67,12 +66,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    sortEpisodes: (episodes) => {
-      dispatch(sortEpisodes(episodes))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EpisodeList)
+export default connect(mapStateToProps)(EpisodeList)

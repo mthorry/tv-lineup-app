@@ -31,6 +31,7 @@ class SearchContainer extends React.Component {
   render() {
     return(
       <div>
+      <br/>
         <Divider horizontal><h1>Show Search</h1></Divider>
         <Form onSubmit={this.handleSubmit}>
             <Input icon='search' placeholder="Search for a show" onChange={this.handleInput} value={this.state.input}/>

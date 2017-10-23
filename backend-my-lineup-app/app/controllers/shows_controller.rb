@@ -14,7 +14,8 @@ class ShowsController < ApplicationController
     render json: results
   end
 
-  def find_suggested
+
+  def fetch_suggested
     id = params[:_json]
     response = RestClient::Request.execute(
       method: :get,
@@ -26,6 +27,41 @@ class ShowsController < ApplicationController
     )
     results = JSON.parse(response)
     render json: results
+  end
+
+
+  def fetch_premieres
+    date = params[:_json]
+    url = "https://api.trakt.tv/calendars/all/shows/premieres/#{date}/7?extended=full"
+    response = RestClient::Request.execute(
+      method: :get,
+      url: url,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'trakt-api-version': '2',
+        'trakt-api-key': '8de248cf5d4040db92f61ab373123612d998328b4d63540b45991fce09e88d64'
+      }
+    )
+    results = JSON.parse(response)
+    render json: results, status: 200
+  end
+
+
+  def fetch_trending
+    url = "https://api.trakt.tv/shows/trending?extended=full"
+    response = RestClient::Request.execute(
+      method: :get,
+      url: url,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'trakt-api-version': '2',
+        'trakt-api-key': '8de248cf5d4040db92f61ab373123612d998328b4d63540b45991fce09e88d64'
+      }
+    )
+    results = JSON.parse(response)
+    render json: results, status: 200
   end
 
 
@@ -62,11 +98,13 @@ class ShowsController < ApplicationController
     render json: @user.shows
   end
 
+
   def destroy
     show = Show.find(params[:_json])
     show.destroy
     render json: User.first.shows
   end
+
 
   def recommended
     show = params[:_json]

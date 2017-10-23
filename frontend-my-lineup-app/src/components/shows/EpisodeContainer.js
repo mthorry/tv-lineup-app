@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchShowEpisodes, sortEpisodes } from '../../actions/shows'
+import { fetchShowEpisodes } from '../../actions/shows'
 import EpisodeList from './EpisodeList'
 import SuggestedList from './SuggestedList'
 import { Divider } from 'semantic-ui-react'
@@ -26,6 +26,7 @@ class EpisodeContainer extends React.Component {
       </div>
     )
   }
+
 }
 
 function mapStateToProps(state) {
@@ -40,19 +41,9 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchShowEpisodes: (id) => {
       dispatch(fetchShowEpisodes(id))
-    },
-    sortEpisodes: (episodes) => {
-      dispatch(sortEpisodes(episodes))
     }
   }
 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EpisodeContainer)
-
-// EPISODES LIST:
-  // http://api.tvmaze.com/shows/{id}/episodes?extended=full
-
-// EPISODE SHOW PAGE:
-  // "Show Name".toLowerCase().split(" ").join("-")
-  // https://api.trakt.tv/shows/{show-name}/seasons/{season}/episodes/{episode}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SearchItem from './SearchItem'
-import { Card, Divider } from 'semantic-ui-react'
+import { Card, Divider, Loader } from 'semantic-ui-react'
 
 class SearchResults extends React.Component {
 
@@ -11,7 +11,7 @@ class SearchResults extends React.Component {
     })
     return(
       <div>
-      { this.props.isFetching ? "Searching..." : null }
+      { this.props.isFetching ? <Loader active inline='centered' size='large'/> : null }
         { this.props.results.length === 0 ? null : <div>
           <p></p>
           <Divider horizontal><h2>Search Results</h2></Divider>

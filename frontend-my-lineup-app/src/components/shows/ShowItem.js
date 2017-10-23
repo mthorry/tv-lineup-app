@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { removeShow } from '../../actions/shows'
+import { formatTitle, formatSummary, formatTime } from '../../services/formatting'
 import { Link } from 'react-router-dom'
 import { Button, Card } from 'semantic-ui-react'
 
@@ -13,15 +14,21 @@ class ShowItem extends React.Component {
 
   render() {
     const s = this.props.show
-    const title = s.title.toLowerCase().replace(/[&#,+()$~%.'":*?<>{}]/g, '').split(" ").join("-").replace("--", "-")
+    let title = ""
+      if (s) { title = formatTitle(s.title) }
+
     let summary = ""
-    if (s.summary) {summary = s.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "").substring(0,500)}
+      if (s) {summary = formatSummary(s.summary)}
+
+    let show_time = ""
+      if (s) { show_time = formatTime(s.air_time) }
+
     return(
       <Card>
         <Card.Content id={s.id}>
           <Card.Header as='h3'>{s.title}</Card.Header>
           <img src={s.img} alt={s.title} width="250"/>
-          { s.status === "Running" ? <h4>Airs {s.air_day}s at {s.air_time} on {s.network}</h4> : <h4>{s.status}</h4> }
+          { s.status === "Running" ? <h4>Airs {s.air_day}s {show_time} on {s.network}</h4> : <h4>{s.status}</h4> }
           <p>Summary: {summary}</p>
           <Card.Description>Genre: {s.genre}</Card.Description>
           <Card.Description>Rating: {s.rating}</Card.Description>

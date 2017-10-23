@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 import { addShow } from '../../actions/shows'
 import { clearResults } from '../../actions/search'
+import { formatTitle, formatSummary, formatTime } from '../../services/formatting'
 import React from 'react'
-import { Card, Button, Image, Icon } from 'semantic-ui-react'
+import { Card, Button, Image } from 'semantic-ui-react'
 
 class SearchItem extends React.Component {
 
@@ -15,17 +16,22 @@ class SearchItem extends React.Component {
 
   render(){
     const s = this.props.show.show
+
     let summary = ""
-    if (s.summary) { summary = s.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "")}
+      if (s) {summary = formatSummary(s.summary)}
+
+    let show_time = ""
+      if (s) { show_time = formatTime(s.schedule.time) }
+
     let network = ""
-    if (s.network) { network = s.network.name } else { network = s.webChannel.name }
+    if (s) { s.network ? network = s.network.name : network = s.webChannel.name } else { null }
 
     return(
       <Card key={s.id}>
         <Card.Content>
         <h2>{s.name}</h2>
         { s.image ? <Image src={s.image.original} alt={s.name}/> : null }
-        { s.status === "Running" ? <h3>Airs {s.schedule.days[0]}s at {s.schedule.time} on {network}</h3> : <h3><strong>{s.status}</strong></h3>}
+        { s.status === "Running" ? <h3>Airs {s.schedule.days[0]}s {show_time} on {network}</h3> : <h3><strong>{s.status}</strong></h3>}
         <h5>Summary: {summary}</h5>
         <p>Genres: {s.genres.join(", ")}</p>
         </Card.Content>

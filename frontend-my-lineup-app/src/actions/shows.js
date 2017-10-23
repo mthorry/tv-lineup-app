@@ -1,4 +1,8 @@
 import { fetchingResults } from './search'
+import moment from 'moment';
+const token = localStorage.getItem("jwtToken")
+const userId = localStorage.getItem("id")
+
 
 function fetchingShows() {
   return {
@@ -10,6 +14,12 @@ export function fetchedShows(shows) {
   return {
     type: "FETCHED_SHOWS",
     payload: shows
+  }
+}
+export function fetchedPremieres(premieres) {
+  return {
+    type: "FETCHED_PREMIERES",
+    payload: premieres
   }
 }
 
@@ -34,25 +44,16 @@ export function fetchedOnTonight(shows) {
   }
 }
 
-export function sortedEpisodes(episodes) {
-  return {
-    type: "SORTED_SHOW_EPISODES",
-    payload: episodes
-  }
-}
-
-export function sortEpisodes(episodes) {
-  return function (dispatch) {
-    dispatch(fetchingShows())
-    let eps = episodes.reverse()
-    dispatch(sortedEpisodes(eps))
- }
-}
-
 export function fetchShows(id) {
   return function(dispatch) {
     dispatch(fetchingShows())
-    fetch(`http://localhost:3000/${id}/shows`)
+    fetch(`http://localhost:3000/${userId}/shows`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((res) => res.json())
       .then((json) => {
         dispatch(fetchedShows(json))
@@ -62,13 +63,14 @@ export function fetchShows(id) {
 
 export function removeShow(id) {
   return function (dispatch) {
-    dispatch(fetchingShows())
     const body = JSON.stringify(id)
+    dispatch(fetchingShows())
     return fetch("http://localhost:3000/shows", {
         method: "DELETE",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         'body': body
     })
@@ -82,14 +84,14 @@ export function removeShow(id) {
 export function addEpisode(episode) {
   return function (dispatch) {
     dispatch(fetchingShows())
-    const body = episode
     return fetch("http://localhost:3000/episodes", {
         method: "POST",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
-        'body': body
+        'body': episode
     })
       .then(res => res.json())
         .then((json) => {
@@ -107,6 +109,7 @@ export function removeEpisode(id) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         'body': body
     })
@@ -120,7 +123,13 @@ export function removeEpisode(id) {
 export function fetchMyLineup(id) {
   return function(dispatch) {
     dispatch(fetchingShows())
-    fetch(`http://localhost:3000/${id}/episodes`)
+    fetch(`http://localhost:3000/${userId}/episodes`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((res) => res.json())
       .then((json) => {
         dispatch(fetchedEpisodes(json))
@@ -147,7 +156,8 @@ export function addSuggestedShow(id) {
         method: "POST",
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         'body': body
     })
@@ -156,7 +166,26 @@ export function addSuggestedShow(id) {
           dispatch(addShow(json))
         })
   }
+}
 
+export function fetchPremieres() {
+  return function (dispatch) {
+    let d = moment(new Date()).startOf('week').format("YYYY-MM-DD")
+    const body = JSON.stringify(d)
+    return fetch("http://localhost:3000/premieres", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        'body': body
+    })
+      .then(res => res.json())
+        .then((json) => {
+          dispatch(fetchedPremieres(json))
+        })
+  }
 }
 
 export function addShow(show) {
@@ -168,6 +197,7 @@ export function addShow(show) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         'body': body
     })

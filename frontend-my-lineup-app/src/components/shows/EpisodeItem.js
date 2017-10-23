@@ -1,13 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/shows'
-import { Card, Button, Image, Icon } from 'semantic-ui-react'
+import { formatSummary } from '../../services/formatting'
+import { Card, Button, Image } from 'semantic-ui-react'
+import moment from 'moment'
 
 class EpisodeItem extends React.Component {
 
   addEpisode = (e) => {
     e.preventDefault()
-    const episode = JSON.stringify({show: this.props.episode,
+    const episode = JSON.stringify({episode: this.props.episode,
       show_id: this.props.showId})
     this.props.addEpisode(episode)
     }
@@ -21,7 +23,8 @@ class EpisodeItem extends React.Component {
   render(){
     const ep = this.props.episode
     let summary = ""
-    if (ep.summary) {summary = ep.summary.replace("<p>", "").replace("</p>", "").replace("<b>", "").replace("</b>", "")}
+    if (ep) { ep.summary ? summary = formatSummary(ep.summary) : null }
+
     return(
       <Card>
         <Card.Content>
@@ -29,7 +32,7 @@ class EpisodeItem extends React.Component {
           <p></p>
           <Card.Header as='h3'>{ep.name}</Card.Header>
           <Card.Description>Season {ep.season}: Episode {ep.number}</Card.Description>
-          <Card.Description>Airs {ep.airdate} at {ep.airtime}</Card.Description>
+          <Card.Description>Airs {moment(ep.airstamp).format('ddd, M-D-YYYY')} at {moment(ep.airstamp).format('h:mm a')}</Card.Description>
           <p></p>
           <Card.Description>{summary}</Card.Description>
         </Card.Content>

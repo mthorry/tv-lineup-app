@@ -12,6 +12,7 @@ class ShowList extends React.Component {
       return <ShowItem show={show} key={show.id}/>})
     return(
       <div>
+      <br/>
       <Divider horizontal><h1>My Shows</h1></Divider>
         <Card.Group>
           {shows}

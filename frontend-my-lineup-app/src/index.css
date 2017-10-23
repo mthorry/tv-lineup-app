@@ -3,3 +3,18 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.App {
+  padding-left: 15px;
+  padding-right: 15px;
+  font-family: 'Playfair Display';
+  background-image: url('./photography.png');
+  min-height: 800px;
+/*  background: #A1FFCE;
+  background: -webkit-linear-gradient(to top, #A1FFCE, #fff);
+  background: linear-gradient(to top, #A1FFCE, #fff);*/
+}
+
+.navbar {
+  background-color: white;
+}

@@ -1,31 +1,39 @@
 import React from 'react'
-import { Item, Statistic } from 'semantic-ui-react'
+import { Item, Statistic, Button, Segment } from 'semantic-ui-react'
 import { formatTime } from '../../services/formatting'
 
 export default class TrendingItem extends React.Component {
   render(){
     let show = this.props.show.show
+    let video_id = ""
+      show.trailer ? video_id = show.trailer.slice(27) : null
 
     return(
       <Item>
         <Item.Content>
-          <Item.Header><h2>{show.title} on {show.network}</h2></Item.Header>
+          <Item.Header><h2><em>{show.title} on {show.network}</em></h2></Item.Header>
           {' '}
-          <Statistic.Group>
-          <Statistic size='small' color='teal'>
-            <Statistic.Value>{this.props.show.watchers}</Statistic.Value>
-            <Statistic.Label color='teal'>people watching</Statistic.Label>
-          </Statistic>
-          <Statistic size='small' color='yellow'>
-            <Statistic.Value>{(show.rating).toString().slice(0,3)}</Statistic.Value>
-            <Statistic.Label color='yellow'>Rating</Statistic.Label>
-          </Statistic>
+          <Segment floated='right'>
+            <iframe id="ytplayer" type="text/html" width="355" height="200" src={`https://www.youtube.com/embed/${video_id}`} frameBorder="0"></iframe>
+          </Segment>
+          <Statistic.Group widths={3}>
+            <Statistic size='small' color='teal'>
+              <Statistic.Value>{this.props.show.watchers}</Statistic.Value>
+              <Statistic.Label>watching now</Statistic.Label>
+            </Statistic>
+            <Statistic size='small' color='yellow'>
+              <Statistic.Value>{(show.rating).toString().slice(0,3)}</Statistic.Value>
+              <Statistic.Label>Rating</Statistic.Label>
+            </Statistic>
+            <Statistic size='small' color='blue'>
+              <Statistic.Value>{show.aired_episodes}</Statistic.Value>
+              <Statistic.Label >Episodes</Statistic.Label>
+            </Statistic>
           </Statistic.Group>
             <Item.Description><strong>{show.airs.day} at {formatTime(show.airs.time)}</strong></Item.Description>
             <Item.Description>{show.overview}</Item.Description>
           <Item.Extra>
-          <Item.Description as='a' to={show.website} content="Website"/>
-          <Item.Description as='a' to={show.trailer} content="Trailer"/>
+            <Button basic color='blue' as='a' href={show.website} target='_blank' content="Website"/>
           </Item.Extra>
         </Item.Content>
       </Item>

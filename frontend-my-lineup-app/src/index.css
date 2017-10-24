@@ -1,13 +1,13 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
 }
 
 .App {
   padding-left: 15px;
   padding-right: 15px;
-  font-family: 'Playfair Display';
+  font-family: 'Merriweather';
+  font-size: 16px;
   background-image: url('./photography.png');
   min-height: 800px;
 /*  background: #A1FFCE;

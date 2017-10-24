@@ -65,7 +65,7 @@ export function removeShow(id) {
   return function (dispatch) {
     const body = JSON.stringify(id)
     dispatch(fetchingShows())
-    return fetch("http://localhost:3000/shows", {
+    return fetch(`http://localhost:3000/${userId}/user_shows`, {
         method: "DELETE",
         headers: {
           'Accept': 'application/json',
@@ -104,7 +104,7 @@ export function removeEpisode(id) {
   return function (dispatch) {
     dispatch(fetchingShows())
     const body = id
-    return fetch("http://localhost:3000/episodes", {
+    return fetch(`http://localhost:3000/${userId}/user_episodes`, {
         method: "DELETE",
         headers: {
           'Accept': 'application/json',
@@ -151,6 +151,7 @@ export function fetchShowEpisodes(id) {
 
 export function addSuggestedShow(id) {
   return function (dispatch) {
+    dispatch(fetchingShows())
     const body = JSON.stringify(id)
     return fetch("http://localhost:3000/suggested", {
         method: "POST",
@@ -190,7 +191,7 @@ export function fetchPremieres() {
 
 export function addShow(show) {
   return function (dispatch) {
-    dispatch(fetchingResults())
+    dispatch(fetchingShows())
     const body = JSON.stringify(show)
     return fetch("http://localhost:3000/shows", {
         method: "POST",

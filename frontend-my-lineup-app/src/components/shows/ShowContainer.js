@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Loader } from 'semantic-ui-react'
 import { fetchShows, fetchMyLineup, fetchOnTonight, fetchPremieres } from '../../actions/shows'
+import { fetchUserShows } from '../../actions/extras'
 import ShowList from './ShowList'
 import ShowPage from './ShowPage'
 import EpisodeContainer from './EpisodeContainer'
@@ -13,6 +14,7 @@ class ShowContainer extends React.Component {
     const userId = localStorage.getItem("id")
     this.props.myShows.length > 0 ? null : this.props.fetchShows(userId)
     this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
+    this.props.ratings.length > 0 ? null : this.props.fetchUserShows()
     this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
     this.props.premieres.length > 0 ? null : this.props.fetchPremieres()
   }
@@ -43,6 +45,9 @@ function mapDispatchToProps(dispatch) {
     },
     fetchPremieres: () => {
       dispatch(fetchPremieres())
+    },
+    fetchUserShows: () => {
+      dispatch(fetchUserShows())
     }
   }
 }
@@ -53,7 +58,8 @@ function mapStateToProps(state) {
     myLineup: state.show.myLineup,
     premieres: state.show.premieres,
     isFetching: state.show.isFetching,
-    onTonight: state.show.onTonight
+    onTonight: state.show.onTonight,
+    ratings: state.extras.ratings
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addSuggestedShow } from '../../actions/shows'
+import { addSuggestedShow, addEpisode, fetchMyLineup, fetchPremieres } from '../../actions/shows'
 import { Divider, Modal, Button } from 'semantic-ui-react'
 import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
@@ -9,9 +9,30 @@ require('react-big-calendar/lib/css/react-big-calendar.css');
 class PremieresContainer extends React.Component {
   state = { open: false }
 
+  componentDidMount() {
+    const userId = localStorage.getItem("id")
+    this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
+    this.props.premieres.length > 0 ? null : this.props.fetchPremieres()
+  }
+
+
   handleAdd = (event, episode) => {
+    event.preventDefault()
     this.props.addSuggestedShow(episode.episode.show_id)
     this.close()
+  }
+
+  // handleAdd = (event, episode) => {
+  //   let show = episode.episode.episode.show
+  //   debugger
+  //   this.props.addShow(show)
+  //   let ep = JSON.stringify(episode.episode.episode)
+  //   setTimeout(() => this.addEpisode(ep), 2000)
+  //   this.close()
+  // }
+
+  addEpisode = (ep) => {
+    this.props.addEpisode(ep)
   }
 
   show = episode => (e) => this.setState({ episode: e, open: true })
@@ -27,7 +48,8 @@ class PremieresContainer extends React.Component {
           startDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()),
           endDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()+premiere.episode.runtime),
           summary: premiere.episode.overview,
-          show_id: premiere.show.ids.tvdb
+          show_id: premiere.show.ids.tvdb,
+          episode: premiere
         }
       })
 
@@ -58,9 +80,7 @@ class PremieresContainer extends React.Component {
             <p>{ episode !== undefined ? `Summary: ${episode.summary !== null ? episode.summary : `No Summary Available 😕`}` : `No Summary Available` }</p>
           </Modal.Content>
           <Modal.Actions>
-           <Button negative onClick={this.close}>
-              Nevermind
-            </Button>
+           <Button negative icon='remove' labelPosition='right' onClick={this.close} content='Close'/>
             <Button positive icon='checkmark' labelPosition='right' content='Add Show' episode={episode} onClick={this.handleAdd}/>
           </Modal.Actions>
         </Modal>
@@ -81,6 +101,15 @@ function mapDispatchToProps(dispatch) {
   return {
     addSuggestedShow: (id) => {
       dispatch(addSuggestedShow(id))
+    },
+    addEpisode: (episode) => {
+      dispatch(addEpisode(episode))
+    },
+    fetchMyLineup: (id) => {
+      dispatch(fetchMyLineup(id))
+    },
+    fetchPremieres: () => {
+      dispatch(fetchPremieres())
     }
   }
 }

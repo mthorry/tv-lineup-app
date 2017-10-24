@@ -23,8 +23,8 @@ class Nav extends React.Component{
             <Dropdown item text='More'>
               <Dropdown.Menu>
                 <NavLink className="item" to="/premieres"> Premieres </NavLink>
-                <NavLink className="item" to="/networks"> Networks </NavLink>
                 <NavLink className="item" to="/trending"> Trending </NavLink>
+                <NavLink className="item" to="/watching"> Most Watched </NavLink>
               </Dropdown.Menu>
             </Dropdown>
             <NavLink className="item" to="/login" onClick={this.handleLogout}> Logout </NavLink>

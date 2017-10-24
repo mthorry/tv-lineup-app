@@ -15,6 +15,20 @@ export function fetchedTrendingShows(shows) {
   }
 }
 
+export function fetchedWatchingShows(shows) {
+  return {
+    type: "FETCHED_WATCHING_SHOWS",
+    payload: shows
+  }
+}
+
+export function fetchedUserShows(userShows) {
+  return {
+    type: "FETCHED_USER_SHOWS",
+    payload: userShows
+  }
+}
+
 export function fetchTrendingShows() {
   return function (dispatch) {
     const body = JSON.stringify("trending")
@@ -31,6 +45,61 @@ export function fetchTrendingShows() {
       .then(res => res.json())
         .then((json) => {
           dispatch(fetchedTrendingShows(json))
+        })
+  }
+}
+
+export function fetchWatchingShows(period) {
+  return function (dispatch) {
+    dispatch(fetchingTrendingShows())
+    return fetch("http://localhost:3000/watching", {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        'body': period
+    })
+      .then(res => res.json())
+        .then((json) => {
+          dispatch(fetchedWatchingShows(json))
+        })
+  }
+}
+
+export function rateShow(info) {
+  return function (dispatch) {
+    dispatch(fetchingTrendingShows())
+    return fetch(`http://localhost:3000/${userId}/ratings`, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        'body': info
+    })
+      .then(res => res.json())
+        .then((json) => {
+          dispatch(fetchedUserShows(json))
+        })
+  }
+}
+
+export function fetchUserShows() {
+  return function (dispatch) {
+    dispatch(fetchingTrendingShows())
+    return fetch(`http://localhost:3000/${userId}/ratings`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+    })
+      .then(res => res.json())
+        .then((json) => {
+          dispatch(fetchedUserShows(json))
         })
   }
 }

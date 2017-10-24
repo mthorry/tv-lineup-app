@@ -1,4 +1,4 @@
-function searchReducer(state = { results: []}, action) {
+function searchReducer(state = { results: [], isFetching: false}, action) {
   switch (action.type) {
 
     case "FETCHED_RESULTS":

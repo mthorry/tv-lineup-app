@@ -21,7 +21,7 @@ class Login extends React.Component {
       localStorage.setItem("jwtToken", user.jwt)
       localStorage.setItem("id", user.user_id)
     })
-
+// CHECK FOR JWTTOKEN
     setTimeout(() => {this.props.history.push('/shows')}, 1000)
   }
 

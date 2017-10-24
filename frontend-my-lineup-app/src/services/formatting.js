@@ -1,5 +1,5 @@
 export function formatTitle(title) {
-  return title.toLowerCase().replace(/[&#,+()$~%.":*<>{}]/g, '').split(" ").join("-").replace("--", "-")
+  return title.toLowerCase().replace(/[&#,+()$~%.":*<>{}]/g, '').replace(/[']/g,'-').split(" ").join("-").replace("--", "-")
 }
 
 export function formatSummary(summary) {

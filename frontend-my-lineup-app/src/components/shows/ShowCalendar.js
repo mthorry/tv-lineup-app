@@ -4,7 +4,7 @@ import React from 'react'
 import { Divider, Modal, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { formatSummary } from '../../services/formatting'
-import { addShow, addEpisode } from '../../actions/shows'
+import { addShow, addEpisode, removeEpisode, fetchMyLineup, fetchOnTonight } from '../../actions/shows'
 require('react-big-calendar/lib/css/react-big-calendar.css')
 
 BigCalendar.momentLocalizer(moment)
@@ -13,11 +13,29 @@ BigCalendar.momentLocalizer(moment)
 class ShowCalendar extends React.Component {
   state = { open: false }
 
+  componentDidMount() {
+    const userId = localStorage.getItem("id")
+    this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
+    this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
+  }
+
   handleAdd = (event, episode) => {
+    event.preventDefault()
     let show = episode.episode.episode.show
-    let ep = JSON.stringify({episode: episode.episode.episode})
     this.props.addShow(show)
+    let ep = JSON.stringify({episode: episode.episode.episode, show_id: show.id})
+    setTimeout(() => this.addEpisode(ep), 2000)
+    this.close()
+  }
+
+  addEpisode = (ep) => {
     this.props.addEpisode(ep)
+  }
+
+  handleRemove = (event, episode) => {
+    event.preventDefault()
+    let id = JSON.stringify({episode_id: episode.episode.id})
+    this.props.removeEpisode(id)
     this.close()
   }
 
@@ -38,7 +56,8 @@ class ShowCalendar extends React.Component {
           startDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()),
           endDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()+episode.runtime),
           url: episode.url,
-          summary: summary
+          summary: summary,
+          id: episode.id
         }
       })
 
@@ -55,7 +74,8 @@ class ShowCalendar extends React.Component {
           startDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()),
           endDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()+episode.runtime),
           summary: summary,
-          episode: episode
+          episode: episode,
+          id: episode.id
         }
       })
 
@@ -100,10 +120,10 @@ class ShowCalendar extends React.Component {
             <h5>{ episode !== undefined ? `Summary: ${episode.summary !== null ? episode.summary : `No Summary Available 😕`}` : `No Summary Available` }</h5>
           </Modal.Content>
           <Modal.Actions>
-           <Button negative onClick={this.close}>
-              Nevermind
-            </Button>
-            <Button positive icon='checkmark' labelPosition='right' content='Add Show' episode={episode} onClick={this.handleAdd}/>
+           { episode !== undefined ? ( !ids.includes(episode.id) ? <Button icon='remove' labelPosition='right' onClick={this.close} content='Close'/> : <Button negative onClick={this.handleRemove} labelPosition='right' episode={episode} content='Remove from Lineup'/> ) : null}
+
+           { episode !== undefined ? ( !ids.includes(episode.id) ? <Button positive icon='checkmark' labelPosition='right' content='Add Show' episode={episode} onClick={this.handleAdd}/> : <Button negative icon='remove' labelPosition='right' onClick={this.handleRemove} episode={episode} content='Remove from Lineup'/> ) : null }
+
           </Modal.Actions>
         </Modal>
       </div>
@@ -114,9 +134,7 @@ class ShowCalendar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    myShows: state.show.myShows,
     myLineup: state.show.myLineup,
-    showEpisodes: state.show.showEpisodes,
     onTonight: state.show.onTonight
   }
 }
@@ -128,6 +146,15 @@ function mapDispatchToProps(dispatch) {
     },
     addEpisode: (episode) => {
       dispatch(addEpisode(episode))
+    },
+    removeEpisode: (id) => {
+      dispatch(removeEpisode(id))
+    },
+    fetchMyLineup: (id) => {
+      dispatch(fetchMyLineup(id))
+    },
+    fetchOnTonight: () => {
+      dispatch(fetchOnTonight())
     }
   }
 }

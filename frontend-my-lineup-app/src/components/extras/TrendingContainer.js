@@ -21,7 +21,7 @@ class TrendingContainer extends React.Component {
       <br/>
         <Divider horizontal><h1>Trending</h1></Divider>
         <Item.Group divided relaxed>
-          {shows}
+          { this.props.fetching ? <Loader active inline='centered' size='large'/> : shows }
         </Item.Group>
       </div>
     )
@@ -31,7 +31,8 @@ class TrendingContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    trending: state.extras.trending
+    trending: state.extras.trending,
+    fetching: state.extras.isFetching
   }
 }
 

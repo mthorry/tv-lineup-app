@@ -1,19 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { removeShow } from '../../actions/shows'
+import { rateShow } from '../../actions/extras'
 import { formatTitle, formatSummary, formatTime } from '../../services/formatting'
 import { Link } from 'react-router-dom'
-import { Button, Card } from 'semantic-ui-react'
+import { Button, Card, Rating } from 'semantic-ui-react'
 
 class ShowItem extends React.Component {
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.removeShow(this.props.show.id)
+    this.props.removeShow({show_id: this.props.show.id})
+  }
+
+  handleRate = (e, r) => {
+    e.preventDefault()
+    let info = JSON.stringify({rating: r.rating, show_id: this.props.show.id})
+    this.props.rateShow(info)
   }
 
   render() {
     const s = this.props.show
+    const user_show = this.props.ratings.filter( show => {return show.show_id == this.props.show.id})
+    let rating = ""
+      if (user_show.length > 0) { rating = <h4>My Rating: <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star'/></h4> }
+
     let title = ""
       if (s) { title = formatTitle(s.title) }
 
@@ -24,11 +35,14 @@ class ShowItem extends React.Component {
       if (s) { show_time = formatTime(s.air_time) }
 
     return(
-      <Card>
+      <Card centered={true}>
         <Card.Content id={s.id}>
           <Card.Header as='h3'>{s.title}</Card.Header>
           <img src={s.img} alt={s.title} width="250"/>
-          { s.status === "Running" ? <h4>Airs {s.air_day}s {show_time} on {s.network}</h4> : <h4>{s.status}</h4> }
+          { s.status === "Running" ? <h3>Airs {s.air_day}s {show_time} on {s.network}</h3> : <h3>{s.status}</h3> }
+
+            {rating}
+
           <p>Summary: {summary}</p>
           <Card.Description>Genre: {s.genre}</Card.Description>
           <Card.Description>Rating: {s.rating}</Card.Description>
@@ -49,8 +63,18 @@ function mapDispatchToProps(dispatch) {
   return {
     removeShow: (id) => {
       dispatch(removeShow(id))
+    },
+    rateShow: (info) => {
+      dispatch(rateShow(info))
     }
   }
 }
 
-export default connect(null, mapDispatchToProps)(ShowItem)
+
+function mapStateToProps(state) {
+  return {
+    ratings: state.extras.ratings
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShowItem)

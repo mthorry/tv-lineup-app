@@ -9,7 +9,7 @@ import { Card, Button, Loader } from 'semantic-ui-react'
 class SuggestedList extends React.Component {
 
   state = {
-    recommended: []
+    recommend: []
   }
 
   handleClick = (e) => {
@@ -40,7 +40,7 @@ class SuggestedList extends React.Component {
     let titles = this.props.myShows.map(show => show.title)
     let recs = ""
 
-    if (this.state.recommend) { recs = this.state.recommend.map( show => titles.includes(show.title) ? null : <Card key={show.ids.tvdb} >
+    if (this.state.recommend.length > 0) { recs = this.state.recommend.map( show => titles.includes(show.title) ? null : <Card key={show.ids.tvdb} >
       <Card.Content>
         <h3>{show.title}</h3>
         { show.status !== 'ended' ? <h5>Airs: {show.airs.day} {formatTime(show.airs.time)} on {show.network}</h5> : <h5>{(show.status).toUpperCase()}</h5> }
@@ -63,7 +63,8 @@ class SuggestedList extends React.Component {
       <div>
         <p></p>
         <Card.Group>
-          {recs.length > 0 ? recs : <Loader active inline='centered' size='large'/>}
+          { this.props.fetching ? <Loader active inline='centered' size='large'/> : null }
+          { recs.length > 0 && !this.props.fetching ? recs : null }
         </Card.Group>
       </div>
     )
@@ -73,7 +74,8 @@ class SuggestedList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    myShows: state.show.myShows
+    myShows: state.show.myShows,
+    fetching: state.show.isFetching
   }
 }
 

@@ -9,14 +9,15 @@ class EpisodeItem extends React.Component {
 
   addEpisode = (e) => {
     e.preventDefault()
-    const episode = JSON.stringify({episode: this.props.episode,
-      show_id: this.props.showId})
+    let ep = this.props.episode
+    let id = this.props.showId
+    const episode = JSON.stringify({episode: ep, show_id: id})
     this.props.addEpisode(episode)
     }
 
   removeEpisode = (e) => {
     e.preventDefault()
-    const id = JSON.stringify({id: this.props.episode.id})
+    const id = JSON.stringify({episode_id: this.props.episode.id})
     this.props.removeEpisode(id)
     }
 
@@ -34,7 +35,7 @@ class EpisodeItem extends React.Component {
           <Card.Description>Season {ep.season}: Episode {ep.number}</Card.Description>
           <Card.Description>Airs {moment(ep.airstamp).format('ddd, M-D-YYYY')} at {moment(ep.airstamp).format('h:mm a')}</Card.Description>
           <p></p>
-          <Card.Description>{summary}</Card.Description>
+          <Card.Meta>{summary}</Card.Meta>
         </Card.Content>
         <Card.Content extra>
           <div className='ui two buttons'>

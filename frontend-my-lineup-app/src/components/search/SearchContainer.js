@@ -34,7 +34,7 @@ class SearchContainer extends React.Component {
       <br/>
         <Divider horizontal><h1>Show Search</h1></Divider>
         <Form onSubmit={this.handleSubmit}>
-            <Input icon='search' placeholder="Search for a show" onChange={this.handleInput} value={this.state.input}/>
+          { this.props.fetching ? <Input loading icon='search' placeholder="Searching.." onChange={this.handleInput} value={this.state.input}/> : <Input icon='search' placeholder="Search for a show" onChange={this.handleInput} value={this.state.input}/> }
             {" "}
             <Button basic color='blue' type="submit">Search</Button>
         </Form>
@@ -58,7 +58,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     results: state.search.results,
-    myShows: state.show.myShows
+    myShows: state.show.myShows,
+    fetching: state.search.isFetching
   }
 }
 

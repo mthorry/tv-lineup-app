@@ -11,7 +11,7 @@ class EpisodesController < ApplicationController
     end
 
     if params[:show_id]
-      show = Show.find(params[:show_id])
+       show = Show.find(params[:show_id])
       episode = Episode.find_or_create_by(
         id: params[:episode][:id],
         show_title: show.title,
@@ -25,27 +25,29 @@ class EpisodesController < ApplicationController
         img: image,
         url: params[:episode][:url],
         summary: params[:episode][:summary],
-        show_id: params[:show_id]
+        show_id: show.id
       )
       episode.users << user
+    # elsif params[:episode][:show][:title] || params[:show][:title]
+    #   show = Show.find_by(title: params[:episode][:show][:title]) || show = Show.find_by(title: params[:show][:title])
+      # show = Show.find(params[:show][:id])
+      # episode = Episode.find_or_create_by(
+      #   id: params[:id],
+      #   show_title: show.title,
+      #   title: params[:name],
+      #   season: params[:season],
+      #   number: params[:number],
+      #   airdate: params[:airdate],
+      #   airtime: params[:airtime],
+      #   airstamp: params[:airstamp],
+      #   runtime: params[:runtime],
+      #   img: image,
+      #   url: params[:url],
+      #   summary: params[:summary],
+      #   show_id: params[:show][:id]
+      # )
+      # episode.users << user
     else
-      show = Show.find(params[:show][:id])
-      episode = Episode.find_or_create_by(
-        id: params[:id],
-        show_title: show.title,
-        title: params[:name],
-        season: params[:season],
-        number: params[:number],
-        airdate: params[:airdate],
-        airtime: params[:airtime],
-        airstamp: params[:airstamp],
-        runtime: params[:runtime],
-        img: image,
-        url: params[:url],
-        summary: params[:summary],
-        show_id: params[:show][:id]
-      )
-      episode.users << user
     end
 
     render json: user.episodes

@@ -11,8 +11,9 @@ class UserEpisodesController < ApplicationController
   def destroy
     user_episode = UserEpisode.find_by(user_id: params[:id], episode_id: params[:episode_id])
     user_episode.destroy
+    episodes = User.find(params[:id]).episodes
 
-    render json: user.episodes
+    render json: episodes
   end
 
 end

@@ -26,7 +26,7 @@ class App extends Component {
         <Route exact path='/lineup' component={ShowCalendar} />
         <Route exact path='/trending' component={TrendingContainer} />
         <Route exact path='/watching' component={MostWatchedContainer} />
-        <Container/>
+      <Container/>
       </div>
     );
   }

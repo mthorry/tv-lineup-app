@@ -1,7 +1,7 @@
 import BigCalendar from 'react-big-calendar'
 import moment from 'moment'
 import React from 'react'
-import { Divider, Modal, Button } from 'semantic-ui-react'
+import { Divider, Modal, Button, Transition } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { formatSummary } from '../../services/formatting'
 import { addShow, addEpisode, removeEpisode, fetchMyLineup, fetchOnTonight } from '../../actions/shows'
@@ -83,6 +83,7 @@ class ShowCalendar extends React.Component {
       <div>
         <br/>
       <Divider horizontal><h1>My Lineup</h1></Divider>
+      <Transition animation='fade' duration={800} transitionOnMount={true}>
         <BigCalendar
           popup
           onSelectEvent={this.show(episode)}
@@ -95,9 +96,11 @@ class ShowCalendar extends React.Component {
           min={moment('8:00pm', 'h:mma').toDate()}
           max={moment('11:59pm', 'h:mma').toDate()}
         />
+        </Transition>
         <br/>
 
         <Divider horizontal><h2>Highly Rated Shows On Tonight</h2></Divider>
+      <Transition animation='fade' duration={800} transitionOnMount={true}>
         <BigCalendar
           popup
           onSelectEvent={this.show(episode)}
@@ -110,6 +113,7 @@ class ShowCalendar extends React.Component {
           step={15}
           min={moment('8:00pm', 'h:mma').toDate()}
           max={moment('11:30pm', 'h:mma').toDate()}/>
+        </Transition>
 
         <Modal size='tiny' episode={episode} open={open} onClose={this.close}>
           <Modal.Header>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Item, Statistic, Button, Segment } from 'semantic-ui-react'
+import { Item, Statistic, Button, Segment, Transition } from 'semantic-ui-react'
 import { formatTime } from '../../services/formatting'
 
 export default class TrendingItem extends React.Component {
@@ -9,6 +9,7 @@ export default class TrendingItem extends React.Component {
       show.trailer ? video_id = show.trailer.slice(27) : null
 
     return(
+      <Transition animation='fade left' duration={800} transitionOnMount={true}>
       <Item>
         <Item.Content>
           <Item.Header><h2><em>{show.title} on {show.network}</em></h2></Item.Header>
@@ -33,10 +34,11 @@ export default class TrendingItem extends React.Component {
             <Item.Description><strong>{show.airs.day} at {formatTime(show.airs.time)}</strong></Item.Description>
             <Item.Description>{show.overview}</Item.Description>
           <Item.Extra>
-            <Button basic color='blue' as='a' href={show.website} target='_blank' content="Website"/>
+            <Button basic color='blue' icon='external' as='a' href={show.homepage} target='_blank' content='Website'/>
           </Item.Extra>
         </Item.Content>
       </Item>
+      </Transition>
     )
   }
 }

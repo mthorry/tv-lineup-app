@@ -39,13 +39,13 @@ class EpisodeList extends React.Component {
 
 
   render(){
-    let episodes = <Loader active inline='centered' size='large'/>
+    let episodes = ""
     if (this.state.displayedItems && this.props.myLineup) {episodes = this.state.displayedItems.map( episode => <EpisodeItem key={episode.id} episode={episode} showId={this.props.id} added={this.props.myLineup.filter(myEpisode => myEpisode.id == episode.id)} /> )}
 
     return(
       <div>
         <Card.Group>
-        {episodes}
+        { episodes}
         </Card.Group>
         <br/>
         <div>
@@ -62,7 +62,6 @@ function mapStateToProps(state) {
   return {
     myLineup: state.show.myLineup,
     showEpisodes: state.show.showEpisodes,
-    isFetching: state.show.isFetching
   }
 }
 

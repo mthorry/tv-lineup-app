@@ -12,7 +12,7 @@ class Nav extends React.Component{
   render(){
     return(
       <div className="navbar">
-      <Menu color='teal' pointing secondary >
+      <Menu color='teal' pointing secondary>
         <Menu.Item>
           <img src="http://d2trtkcohkrm90.cloudfront.net/images/emoji/apple/ios-10/256/television.png" alt="📺"/>
         </Menu.Item>

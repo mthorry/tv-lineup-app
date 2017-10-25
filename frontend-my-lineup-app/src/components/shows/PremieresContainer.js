@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addSuggestedShow, addEpisode, fetchMyLineup, fetchPremieres } from '../../actions/shows'
-import { Divider, Modal, Button } from 'semantic-ui-react'
+import { Divider, Modal, Button, Transition } from 'semantic-ui-react'
 import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
 require('react-big-calendar/lib/css/react-big-calendar.css');
@@ -18,18 +18,10 @@ class PremieresContainer extends React.Component {
 
   handleAdd = (event, episode) => {
     event.preventDefault()
-    this.props.addSuggestedShow(episode.episode.show_id)
+    this.props.addSuggestedShow({id: episode.episode.show_id})
     this.close()
   }
 
-  // handleAdd = (event, episode) => {
-  //   let show = episode.episode.episode.show
-  //   debugger
-  //   this.props.addShow(show)
-  //   let ep = JSON.stringify(episode.episode.episode)
-  //   setTimeout(() => this.addEpisode(ep), 2000)
-  //   this.close()
-  // }
 
   addEpisode = (ep) => {
     this.props.addEpisode(ep)
@@ -40,9 +32,10 @@ class PremieresContainer extends React.Component {
 
   render(){
     const { open, episode } = this.state
+
     let events = this.props.premieres.map( premiere => {
       let d = new Date(premiere.episode.first_aired)
-
+       if (d.getHours() >= 20){
         return {
           title: (premiere.episode.number === 1 && premiere.episode.season === 1 ? "🌟 NEW " : "") + premiere.show.title + " on " + premiere.show.network,
           startDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()),
@@ -50,13 +43,14 @@ class PremieresContainer extends React.Component {
           summary: premiere.episode.overview,
           show_id: premiere.show.ids.tvdb,
           episode: premiere
-        }
+        }}
       })
 
     return(
       <div>
         <br/>
         <Divider horizontal ><h1>Premieres This Week</h1></Divider>
+          <Transition animation='fade' duration={800} transitionOnMount={true}>
           <BigCalendar
             popup
             onSelectEvent={this.show(episode)}
@@ -69,6 +63,7 @@ class PremieresContainer extends React.Component {
             min={moment('8:00pm', 'h:mma').toDate()}
             max={moment('11:59pm', 'h:mma').toDate()}
           />
+          </Transition>
         <br/>
 
         <Modal size='tiny' episode={episode} open={open} onClose={this.close}>

@@ -3,7 +3,7 @@ import { addShow } from '../../actions/shows'
 import { clearResults } from '../../actions/search'
 import { formatTitle, formatSummary, formatTime } from '../../services/formatting'
 import React from 'react'
-import { Card, Button, Image } from 'semantic-ui-react'
+import { Card, Button, Image, Transition } from 'semantic-ui-react'
 
 class SearchItem extends React.Component {
 
@@ -27,7 +27,8 @@ class SearchItem extends React.Component {
     if (s) { s.network ? network = s.network.name : network = s.webChannel.name } else { null }
 
     return(
-      <Card key={s.id}>
+      <Transition animation='vertical flip' duration={800} transitionOnMount={true}>
+      <Card key={s.id} centered={true}>
         <Card.Content>
         <h2>{s.name}</h2>
         { s.image ? <Image src={s.image.original} alt={s.name}/> : null }
@@ -39,6 +40,7 @@ class SearchItem extends React.Component {
           <Button basic color='teal' onClick={this.handleClick} icon='tv' content='Add to my Shows' attached='bottom'/>
         </Card.Content>
       </Card>
+      </Transition>
     )}
 }
 

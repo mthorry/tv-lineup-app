@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { formatTime } from '../../services/formatting'
 import { addSuggestedShow } from '../../actions/shows'
-import { Card, Button, Loader } from 'semantic-ui-react'
+import { Card, Button, Loader, Transition } from 'semantic-ui-react'
 
 // EPISODE CONTAINER = PARENT
 
@@ -13,7 +13,7 @@ class SuggestedList extends React.Component {
   }
 
   handleClick = (e) => {
-    this.props.addSuggestedShow(e.target.id)
+    this.props.addSuggestedShow({id: e.target.id})
   }
 
   componentDidMount = () => {
@@ -40,7 +40,8 @@ class SuggestedList extends React.Component {
     let titles = this.props.myShows.map(show => show.title)
     let recs = ""
 
-    if (this.state.recommend.length > 0) { recs = this.state.recommend.map( show => titles.includes(show.title) ? null : <Card key={show.ids.tvdb} >
+    if (this.state.recommend.length > 0) { recs = this.state.recommend.map( show => titles.includes(show.title) ? null : <Transition key={show.ids.tvdb} animation='drop' duration={1000} transitionOnMount={true}>
+      <Card centered={true}>
       <Card.Content>
         <h3>{show.title}</h3>
         { show.status !== 'ended' ? <h5>Airs: {show.airs.day} {formatTime(show.airs.time)} on {show.network}</h5> : <h5>{(show.status).toUpperCase()}</h5> }
@@ -56,15 +57,16 @@ class SuggestedList extends React.Component {
         <Button basic color='olive' onClick={this.handleClick} id={show.ids.tvdb} content='Add Show' icon='add'/>
       </div>
       </Card.Content>
-      </Card>)
+      </Card>
+      </Transition>)
      }
 
     return(
       <div>
         <p></p>
+
         <Card.Group>
-          { this.props.fetching ? <Loader active inline='centered' size='large'/> : null }
-          { recs.length > 0 && !this.props.fetching ? recs : null }
+          { recs.length > 0 ? recs : null }
         </Card.Group>
       </div>
     )

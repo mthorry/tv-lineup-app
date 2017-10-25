@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ShowItem from './ShowItem'
-import { Card, Divider } from 'semantic-ui-react'
+import { Card, Divider, Loader, Transition } from 'semantic-ui-react'
 
 // Need SORT and FILTER functions!
 
@@ -14,9 +14,9 @@ class ShowList extends React.Component {
       <div>
       <br/>
       <Divider horizontal><h1>My Shows</h1></Divider>
-        <Card.Group>
-          {shows}
-        </Card.Group>
+        <Transition.Group as={Card.Group} children={shows} >
+        { this.props.isFetching ? <Loader active inline='centered' size='large' content='Working'/> : shows }
+        </Transition.Group>
       </div>
     )
   }

@@ -24,7 +24,6 @@ class ShowContainer extends React.Component {
       <div>
         <Route exact path='/shows' component={ShowList} />
         <br/>
-      { this.props.isFetching ? <Loader active inline='centered' size='large'/> : null }
         <Route exact path='/shows/:id/:name' component={ShowPage} />
         <Route exact path='/shows/:id/:name' component={EpisodeContainer} />
       </div>

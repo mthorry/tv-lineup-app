@@ -24,7 +24,7 @@ export function searchShows(search) {
   return function (dispatch) {
     dispatch(fetchingResults())
     const token = localStorage.getItem("jwtToken")
-    const body = JSON.stringify(search)
+    const body = JSON.stringify({search: search})
     return fetch("http://localhost:3000/search", {
         method: "POST",
         headers: {

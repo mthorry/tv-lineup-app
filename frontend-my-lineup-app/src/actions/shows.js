@@ -172,7 +172,7 @@ export function addSuggestedShow(id) {
 export function fetchPremieres() {
   return function (dispatch) {
     let d = moment(new Date()).startOf('week').format("YYYY-MM-DD")
-    const body = JSON.stringify(d)
+    const body = JSON.stringify({date: d})
     return fetch("http://localhost:3000/premieres", {
         method: "POST",
         headers: {

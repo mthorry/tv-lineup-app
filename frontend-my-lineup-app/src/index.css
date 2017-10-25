@@ -4,8 +4,8 @@ body {
 }
 
 .App {
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 50px;
+  padding-right: 50px;
   font-family: 'Merriweather';
   font-size: 16px;
   background-image: url('./photography.png');

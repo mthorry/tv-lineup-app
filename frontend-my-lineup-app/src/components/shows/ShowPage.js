@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { removeShow, fetchMyLineup } from '../../actions/shows'
 import { rateShow, fetchUserShows } from '../../actions/extras'
-import { Grid, Button, Icon, Image, Loader, Statistic, Rating } from 'semantic-ui-react'
+import { Grid, Button, Icon, Image, Loader, Statistic, Rating, Transition } from 'semantic-ui-react'
 import { formatSummary, formatTime } from '../../services/formatting'
 import moment from 'moment'
 
@@ -15,7 +15,7 @@ class ShowPage extends React.Component {
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.removeShow(this.props.match.params.id)
+    this.props.removeShow({show_id: this.props.match.params.id})
     this.props.history.push('/shows')
   }
 
@@ -36,33 +36,44 @@ class ShowPage extends React.Component {
     let summary = ""
       if (show) { summary = formatSummary(show.summary) }
 
-    if (show === undefined) {return(<Loader active inline='centered' size='large'/>)} else {return(<Grid celled id={show.id}>
-          <Grid.Row>
+    if (show === undefined) {return(<Loader active inline='centered' size='large'/>)} else {return(<Transition animation='fade' duration={800} transitionOnMount={true}><Grid celled id={show.id} verticalAlign='middle'>
           <Grid.Column width={5}>
             <Image src={show.img} alt={show.title}/>
           </Grid.Column>
           <Grid.Column width={11}>
-            <h1>{show.title}</h1>
 
-            <h3>My Rating: { user_show !== undefined ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='huge'/> : `unavailable` }</h3>
+            <Grid.Row>
+              <h1>{show.title}</h1>
+                <br/>
+            </Grid.Row>
 
-            { show.status === "Running" ? <h4>Airs {show.air_day}s at {show_time} on {show.network}</h4> : <h4><strong>{show.status}</strong></h4> }
-            <p>Summary: {summary} </p>
+            <Grid.Row stretched>
+
+              My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='huge'/> : `unavailable` }
+                {' '}
+                {' '}
                 <Statistic size='tiny' color='olive'>
                   <Statistic.Value>{show.rating}</Statistic.Value>
                   <Statistic.Label>Rating</Statistic.Label>
                 </Statistic>
+                {' '}
                 <Statistic size='mini' color='teal'>
                   <Statistic.Value>{show.genre}</Statistic.Value>
                   <Statistic.Label>Genre</Statistic.Label>
                 </Statistic>
-            <br/>
-            <br/>
-            { show.url ? <Button basic color='teal' as='a' href={show.url} target='_blank' icon='external' content='Official Website'/> : null }
-            <Button basic color='yellow' icon='remove' content='Remove' onClick={this.handleClick}/>
+              </Grid.Row>
+
+              <Grid.Row>
+                <br/>
+                { show.status === "Running" ? <h4>Airs {show.air_day}s at {show_time} on {show.network}</h4> : <h4><strong>{show.status}</strong></h4> }
+                <p>Summary: {summary} </p>
+                <br/>
+                { show.url ? <Button basic color='teal' as='a' href={show.url} target='_blank' icon='external' content='Official Website'/> : null }
+                <Button basic color='yellow' icon='remove' content='Remove' onClick={this.handleClick}/>
+              </Grid.Row>
+
           </Grid.Column>
-          </Grid.Row>
-        </Grid>)}
+        </Grid></Transition>)}
 
   }
 }
@@ -89,6 +100,7 @@ function mapStateToProps(state) {
     myShows: state.show.myShows,
     ratings: state.extras.ratings,
     myLineup: state.show.myLineup,
+    isFetching: state.show.isFetching
   }
 }
 

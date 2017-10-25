@@ -8,7 +8,7 @@ class UserShowsController < ApplicationController
 
   def rate_show
     user = User.find(params[:id])
-    user_show = user.user_shows.find_by(show_id: params[:show_id])
+    user_show = UserShow.find_by(user_id: params[:id], show_id: params[:show_id])
     user_show.rating = params[:rating].to_i
     user_show.save
     render json: user.user_shows
@@ -17,8 +17,9 @@ class UserShowsController < ApplicationController
   def destroy
     user_show = UserShow.find_by(user_id: params[:id], show_id: params[:show_id])
     user_show.destroy
+    shows = User.find(params[:id]).shows
 
-    render json: user.shows
+    render json: shows
   end
 
 end

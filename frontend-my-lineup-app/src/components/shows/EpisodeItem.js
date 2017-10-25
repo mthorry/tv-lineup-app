@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/shows'
 import { formatSummary } from '../../services/formatting'
-import { Card, Button, Image } from 'semantic-ui-react'
+import { Card, Button, Image, Transition } from 'semantic-ui-react'
 import moment from 'moment'
 
 class EpisodeItem extends React.Component {
@@ -27,7 +27,8 @@ class EpisodeItem extends React.Component {
     if (ep) { ep.summary ? summary = formatSummary(ep.summary) : null }
 
     return(
-      <Card>
+      <Transition animation='drop' duration={1000} transitionOnMount={true}>
+      <Card centered={true}>
         <Card.Content>
           { ep.image ? <Image src={ep.image.original} alt={ep.name}/> : null }
           <p></p>
@@ -44,6 +45,7 @@ class EpisodeItem extends React.Component {
           </div>
         </Card.Content>
       </Card>
+      </Transition>
     )
   }
 }

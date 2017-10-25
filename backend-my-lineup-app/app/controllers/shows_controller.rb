@@ -35,7 +35,7 @@ class ShowsController < ApplicationController
 
 
   def search
-    search = params[:_json]
+    search = params[:search]
     response = RestClient::Request.execute(
       method: :get,
       url: "http://api.tvmaze.com/search/shows?q=#{search}",
@@ -50,7 +50,7 @@ class ShowsController < ApplicationController
 
 
   def fetch_suggested
-    id = params[:_json]
+    id = params[:id]
     response = RestClient::Request.execute(
       method: :get,
       url: "http://api.tvmaze.com/lookup/shows?thetvdb=#{id}",
@@ -65,7 +65,7 @@ class ShowsController < ApplicationController
 
 
   def fetch_premieres
-    date = params[:_json]
+    date = params[:date]
     url = "https://api.trakt.tv/calendars/all/shows/premieres/#{date}/7?extended=full"
     response = RestClient::Request.execute(
       method: :get,

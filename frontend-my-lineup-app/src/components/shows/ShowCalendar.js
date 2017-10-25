@@ -42,6 +42,19 @@ class ShowCalendar extends React.Component {
   show = episode => (e) => this.setState({ episode: e, open: true })
   close = () => this.setState({ open: false })
 
+  eventStyleGetter = (event, start, end, isSelected) => {
+      console.log(event)
+      var style = {
+          backgroundColor: '#20b2aa',
+          borderRadius: '5px',
+          borderColor: 'white',
+          color: 'white',
+          display: 'block',
+      }
+      return {
+          style: style
+      }
+  }
 
   render() {
       const { open, episode } = this.state
@@ -111,6 +124,7 @@ class ShowCalendar extends React.Component {
           startAccessor='startDate'
           endAccessor='endDate'
           step={15}
+          eventPropGetter={(this.eventStyleGetter)}
           min={moment('8:00pm', 'h:mma').toDate()}
           max={moment('11:30pm', 'h:mma').toDate()}/>
         </Transition>

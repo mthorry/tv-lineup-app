@@ -1,11 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/shows'
+import { removeEpisode } from '../../actions/shows'
 import { formatSummaryShort } from '../../services/formatting'
 import { Card, Button, Image, Transition } from 'semantic-ui-react'
 import moment from 'moment'
 
 class DashboardLineupItem extends React.Component {
+
+  handleRemove = (event, episode) => {
+    event.preventDefault()
+    let id = JSON.stringify({episode_id: episode.episode.id})
+    this.props.removeEpisode(id)
+  }
 
   render(){
     const ep = this.props.episode
@@ -24,6 +30,7 @@ class DashboardLineupItem extends React.Component {
         <Card.Content extra>
           <div className='ui two buttons'>
           <Button basic color='blue' as='a' href={ep.url} target='_blank' content='More Info' icon='external'/>
+          <Button basic color='yellow' as='a' href={ep.url} target='_blank' content='Remove' icon='remove from calendar' episode={ep} onClick={this.handleRemove}/>
           </div>
         </Card.Content>
       </Card>
@@ -32,5 +39,13 @@ class DashboardLineupItem extends React.Component {
   }
 }
 
-export default connect()(DashboardLineupItem)
+function mapDispatchToProps(dispatch) {
+  return {
+    removeEpisode: (id) => {
+      dispatch(removeEpisode(id))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(DashboardLineupItem)
 

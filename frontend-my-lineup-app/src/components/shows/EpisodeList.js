@@ -49,8 +49,8 @@ class EpisodeList extends React.Component {
         </Card.Group>
         <br/>
         <div>
-        <Button floated='left' basic color='grey' onClick={this.handleNext}><Icon name='left arrow'/> Older </Button>
-        {this.state.currentPageNo === 1 ? null : <Button floated='right' basic color='grey' onClick={this.handlePrevious} > Newer <Icon name='right arrow'/></Button> }
+        { this.state.displayedItems.length < 5 ? null : <Button floated='left' basic color='grey' onClick={this.handleNext}><Icon name='left arrow'/> Older </Button> }
+        { this.state.currentPageNo === 1 ? null : <Button floated='right' basic color='grey' onClick={this.handlePrevious} > Newer <Icon name='right arrow'/></Button> }
         <br/>
         </div>
       </div>

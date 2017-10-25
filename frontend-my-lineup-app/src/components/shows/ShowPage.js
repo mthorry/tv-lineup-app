@@ -49,9 +49,8 @@ class ShowPage extends React.Component {
 
             <Grid.Row stretched>
 
-              My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='massive'/> : `unavailable` }
-                {' '}
-                {' '}
+              My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='massive'/> : null }
+
                 <Statistic size='tiny' color='olive'>
                   <Statistic.Value>{show.rating}</Statistic.Value>
                   <Statistic.Label>Rating</Statistic.Label>

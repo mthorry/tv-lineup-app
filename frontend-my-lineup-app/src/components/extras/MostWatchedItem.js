@@ -41,7 +41,7 @@ export default class MostWatchedItem extends React.Component {
             <Item.Description><strong>{show.airs.day} {show.airs.time !== null ? `at ${formatTime(show.airs.time)}` : null}</strong></Item.Description>
             <Item.Description>{formatSummary(show.overview)}</Item.Description>
           <Item.Extra>
-            <Button basic color='blue' icon='external' as='a' href={show.homepage} target='_blank' content='Website'/>
+            {show.homepage ? <Button basic color='blue' icon='external' as='a' href={show.homepage} target='_blank' content='Website'/> : null }
           </Item.Extra>
         </Item.Content>
       </Item>

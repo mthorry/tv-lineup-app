@@ -38,7 +38,7 @@ class MostWatchedContainer extends React.Component {
           <b>Most Watched Shows </b>(from trakt.tv users):
         <Form.Group inline widths='equal'>
           {' '}
-          <Form.Radio
+          <Form.Radio toggle
             label='This Week'
             name='checkboxRadioGroup'
             value='weekly'
@@ -46,7 +46,7 @@ class MostWatchedContainer extends React.Component {
             onChange={this.handleChange}
           />
           {' '}
-          <Form.Radio
+          <Form.Radio toggle
             label='This Month'
             name='checkboxRadioGroup'
             value='monthly'
@@ -54,7 +54,7 @@ class MostWatchedContainer extends React.Component {
             onChange={this.handleChange}
           />
           {' '}
-          <Form.Radio
+          <Form.Radio toggle
             label='This Year'
             name='checkboxRadioGroup'
             value='yearly'
@@ -62,7 +62,7 @@ class MostWatchedContainer extends React.Component {
             onChange={this.handleChange}
           />
           {' '}
-          <Form.Radio
+          <Form.Radio toggle
             label='Ever'
             name='checkboxRadioGroup'
             value='all'

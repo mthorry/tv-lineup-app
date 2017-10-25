@@ -53,8 +53,8 @@ class DashboardOnTonightList extends React.Component {
         </Card.Group>
         <br/>
         <div>
-        <Button floated='right' basic color='grey' onClick={this.handleNext}> More <Icon name='right arrow'/></Button>
-        {this.state.currentPageNo === 1 ? null : <Button floated='left' basic color='grey' onClick={this.handlePrevious} ><Icon name='left arrow'/> Back </Button> }
+        { this.state.displayedItems.length < 5 ? null : <Button floated='right' basic color='grey' onClick={this.handleNext}> More <Icon name='right arrow'/></Button> }
+        { this.state.currentPageNo === 1 ? null : <Button floated='left' basic color='grey' onClick={this.handlePrevious} ><Icon name='left arrow'/> Back </Button> }
         <br/>
         </div>
       </div>

@@ -30,6 +30,20 @@ class PremieresContainer extends React.Component {
   show = episode => (e) => this.setState({ episode: e, open: true })
   close = () => this.setState({ open: false })
 
+  eventStyleGetter = (event, start, end, isSelected) => {
+      console.log(event)
+      var style = {
+          backgroundColor: '#8fbc8f',
+          borderRadius: '5px',
+          borderColor: 'white',
+          color: 'white',
+          display: 'block',
+      }
+      return {
+          style: style
+      }
+  }
+
   render(){
     const { open, episode } = this.state
 
@@ -60,6 +74,7 @@ class PremieresContainer extends React.Component {
             startAccessor='startDate'
             endAccessor='endDate'
             step={7.5}
+            eventPropGetter={(this.eventStyleGetter)}
             min={moment('8:00pm', 'h:mma').toDate()}
             max={moment('11:59pm', 'h:mma').toDate()}
           />

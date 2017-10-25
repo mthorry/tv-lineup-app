@@ -21,7 +21,7 @@ class DashboardContainer extends React.Component {
         <Divider horizontal ><h1>My Lineup for Tonight</h1></Divider>
           {this.props.isFetching ? <Loader active inline='centered' size='large' content='Working'/> : <DashboardLineupList /> }
         <br/>
-        <Divider horizontal ><h2>Also On Tonight</h2></Divider>
+        <Divider horizontal ><h2>Other Shows To Watch Tonight</h2></Divider>
           {this.props.isFetching ? <Loader active inline='centered' size='large' content='Working'/> : <DashboardOnTonightList /> }
         <br/>
       </div>

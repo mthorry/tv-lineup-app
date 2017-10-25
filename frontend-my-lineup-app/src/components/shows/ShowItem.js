@@ -36,15 +36,12 @@ class ShowItem extends React.Component {
 
     return(
       <Transition animation='fade down' duration={800} transitionOnMount={true}>
-      <Card centered={true}>
+      <Card centered={true} color='blue'>
         <Card.Content id={s.id}>
           <Card.Header as='h3'><Link to={`/shows/${s.id}/${title}`}>{s.title}</Link></Card.Header>
           <img src={s.img} alt={s.title} width="250"/>
           { s.status === "Running" ? <h3>Airs {s.air_day}s {show_time} on {s.network}</h3> : <h3>{s.status}</h3> }
-
             {rating}
-
-          <p>Summary: {summary}</p>
           <Card.Description>Genre: {s.genre}</Card.Description>
           <Card.Description>Rating: {s.rating}</Card.Description>
         </Card.Content>

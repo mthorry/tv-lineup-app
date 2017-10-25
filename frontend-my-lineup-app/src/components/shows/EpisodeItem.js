@@ -27,7 +27,7 @@ class EpisodeItem extends React.Component {
     if (ep) { ep.summary ? summary = formatSummary(ep.summary) : null }
 
     return(
-      <Transition animation='drop' duration={1000} transitionOnMount={true}>
+      <Transition animation='fly left' duration={1000} transitionOnMount={true}>
       <Card centered={true}>
         <Card.Content>
           { ep.image ? <Image src={ep.image.original} alt={ep.name}/> : null }

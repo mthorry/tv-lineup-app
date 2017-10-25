@@ -1,9 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import EpisodeItem from './EpisodeItem'
+import DashboardOnTonightItem from './DashboardOnTonightItem'
+import moment from 'moment';
 import { Card, Button, Icon, Loader } from 'semantic-ui-react'
 
-class EpisodeList extends React.Component {
+class DashboardOnTonightList extends React.Component {
 
   state = {
     currentPageNo: 1,
@@ -15,9 +16,11 @@ class EpisodeList extends React.Component {
   }
 
   paginate = () => {
+    let ids = this.props.myLineup.map(show => show.id)
     let begin = (this.state.currentPageNo - 1) * 5
     let end = begin + 5
-    let displayed = this.props.showEpisodes.slice(begin, end)
+    let eps = this.props.onTonight.filter(episode => episode.show.rating.average > 8 && !ids.includes(episode.id))
+    let displayed = eps.slice(begin, end)
     this.setState({
       displayedItems: displayed
     })
@@ -39,18 +42,19 @@ class EpisodeList extends React.Component {
 
 
   render(){
+
     let episodes = ""
-    if (this.state.displayedItems && this.props.myLineup) {episodes = this.state.displayedItems.map( episode => <EpisodeItem key={episode.id} episode={episode} showId={this.props.id} added={this.props.myLineup.filter(myEpisode => myEpisode.id == episode.id)} /> )}
+    if (this.state.displayedItems && this.props.myLineup) {episodes = this.state.displayedItems.map( episode => <DashboardOnTonightItem key={episode.id} episode={episode} showId={this.props.id} /> )}
 
     return(
       <div>
         <Card.Group>
-        { episodes}
+        { episodes }
         </Card.Group>
         <br/>
         <div>
-        <Button floated='left' basic color='grey' onClick={this.handleNext}><Icon name='left arrow'/> Older </Button>
-        {this.state.currentPageNo === 1 ? null : <Button floated='right' basic color='grey' onClick={this.handlePrevious} > Newer <Icon name='right arrow'/></Button> }
+        <Button floated='right' basic color='grey' onClick={this.handleNext}> More <Icon name='right arrow'/></Button>
+        {this.state.currentPageNo === 1 ? null : <Button floated='left' basic color='grey' onClick={this.handlePrevious} ><Icon name='left arrow'/> Back </Button> }
         <br/>
         </div>
       </div>
@@ -61,8 +65,8 @@ class EpisodeList extends React.Component {
 function mapStateToProps(state) {
   return {
     myLineup: state.show.myLineup,
-    showEpisodes: state.show.showEpisodes,
+    onTonight: state.show.onTonight
   }
 }
 
-export default connect(mapStateToProps)(EpisodeList)
+export default connect(mapStateToProps)(DashboardOnTonightList)

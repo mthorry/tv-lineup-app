@@ -6,6 +6,7 @@ body {
 .App {
   padding-left: 50px;
   padding-right: 50px;
+  padding-bottom: 50px;
   font-family: 'Merriweather';
   font-size: 16px;
   background-image: url('./photography.png');

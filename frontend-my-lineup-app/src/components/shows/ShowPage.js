@@ -49,7 +49,7 @@ class ShowPage extends React.Component {
 
             <Grid.Row stretched>
 
-              My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='huge'/> : `unavailable` }
+              My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='massive'/> : `unavailable` }
                 {' '}
                 {' '}
                 <Statistic size='tiny' color='olive'>
@@ -57,7 +57,7 @@ class ShowPage extends React.Component {
                   <Statistic.Label>Rating</Statistic.Label>
                 </Statistic>
                 {' '}
-                <Statistic size='mini' color='teal'>
+                <Statistic size='tiny' color='teal'>
                   <Statistic.Value>{show.genre}</Statistic.Value>
                   <Statistic.Label>Genre</Statistic.Label>
                 </Statistic>

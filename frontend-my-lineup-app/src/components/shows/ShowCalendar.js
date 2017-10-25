@@ -52,7 +52,7 @@ class ShowCalendar extends React.Component {
         episode.summary !== null ? summary = formatSummary(episode.summary) : null
 
         return {
-          title: episode.show_title + ": " + episode.title,
+          title: episode.show_title + ": " + episode.title + " " +(episode.show ? ('on ' +episode.show.network) : null),
           startDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()),
           endDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()+episode.runtime),
           url: episode.url,

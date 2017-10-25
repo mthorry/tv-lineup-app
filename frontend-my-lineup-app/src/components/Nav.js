@@ -18,6 +18,7 @@ class Nav extends React.Component{
         </Menu.Item>
         { localStorage.getItem('jwtToken') ? <div className="right menu">
             <NavLink className="item" to="/search"> Search </NavLink>
+            <NavLink className="item" to="/dash"> Dashboard </NavLink>
             <NavLink className="item" to="/shows"> My Shows </NavLink>
             <NavLink className="item" to="/lineup"> My Lineup </NavLink>
             <Dropdown item text='More'>

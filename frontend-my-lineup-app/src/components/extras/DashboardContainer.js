@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import DashboardLineupList from './DashboardLineupList'
 import DashboardOnTonightList from './DashboardOnTonightList'
-import { fetchMyLineup, fetchOnTonight } from '../../actions/shows'
+import { fetchOnTonight } from '../../actions/shows'
+import { fetchMyLineup } from '../../actions/episodes'
 import { Divider, Loader } from 'semantic-ui-react'
 
 class DashboardContainer extends React.Component {
@@ -32,8 +33,8 @@ class DashboardContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    myLineup: state.show.myLineup,
-    isFetching: state.show.isFetching,
+    myLineup: state.episode.myLineup,
+    isFetching: state.episode.isFetching,
     onTonight: state.show.onTonight
   }
 }

@@ -2,11 +2,12 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Loader } from 'semantic-ui-react'
-import { fetchShows, fetchMyLineup, fetchOnTonight, fetchPremieres } from '../../actions/shows'
+import { fetchShows, fetchOnTonight, fetchPremieres } from '../../actions/shows'
+import { fetchMyLineup } from '../../actions/episodes'
 import { fetchUserShows } from '../../actions/extras'
 import ShowList from './ShowList'
 import ShowPage from './ShowPage'
-import EpisodeContainer from './EpisodeContainer'
+import EpisodeContainer from '../episodes/EpisodeContainer'
 
 class ShowContainer extends React.Component {
 
@@ -54,9 +55,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     myShows: state.show.myShows,
-    myLineup: state.show.myLineup,
+    myLineup: state.episode.myLineup,
     premieres: state.show.premieres,
-    isFetching: state.show.isFetching,
     onTonight: state.show.onTonight,
     ratings: state.extras.ratings
   }

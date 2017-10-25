@@ -24,7 +24,6 @@ class ShowList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    results: state.search.results,
     isFetching: state.show.isFetching,
     myShows: state.show.myShows
   }

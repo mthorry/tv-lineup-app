@@ -60,8 +60,8 @@ class EpisodeList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    myLineup: state.show.myLineup,
-    showEpisodes: state.show.showEpisodes,
+    myLineup: state.episode.myLineup,
+    showEpisodes: state.episode.showEpisodes,
   }
 }
 

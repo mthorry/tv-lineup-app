@@ -77,7 +77,6 @@ class SuggestedList extends React.Component {
 function mapStateToProps(state) {
   return {
     myShows: state.show.myShows,
-    fetching: state.show.isFetching
   }
 }
 

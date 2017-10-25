@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { removeShow, fetchMyLineup } from '../../actions/shows'
+import { removeShow } from '../../actions/shows'
+import { fetchMyLineup } from '../../actions/episodes'
 import { rateShow, fetchUserShows } from '../../actions/extras'
 import { Grid, Button, Icon, Image, Loader, Statistic, Rating, Transition } from 'semantic-ui-react'
 import { formatSummary, formatTime } from '../../services/formatting'
@@ -49,7 +50,7 @@ class ShowPage extends React.Component {
 
             <Grid.Row stretched>
 
-              My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='massive'/> : null }
+              My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='massive'/> : <Rating maxRating={5} onRate={this.handleRate} rating={null} icon='star' size='massive'/> }
 
                 <Statistic size='tiny' color='olive'>
                   <Statistic.Value>{show.rating}</Statistic.Value>
@@ -98,8 +99,7 @@ function mapStateToProps(state) {
   return {
     myShows: state.show.myShows,
     ratings: state.extras.ratings,
-    myLineup: state.show.myLineup,
-    isFetching: state.show.isFetching
+    myLineup: state.episode.myLineup,
   }
 }
 

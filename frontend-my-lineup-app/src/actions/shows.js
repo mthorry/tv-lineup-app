@@ -1,4 +1,3 @@
-import { fetchingResults } from './search'
 import moment from 'moment';
 const token = localStorage.getItem("jwtToken")
 const userId = localStorage.getItem("id")
@@ -20,20 +19,6 @@ export function fetchedPremieres(premieres) {
   return {
     type: "FETCHED_PREMIERES",
     payload: premieres
-  }
-}
-
-export function fetchedEpisodes(episodes) {
-  return {
-    type: "FETCHED_MY_EPISODES",
-    payload: episodes
-  }
-}
-
-export function fetchedShowEpisodes(episodes) {
-  return {
-    type: "FETCHED_SHOW_EPISODES",
-    payload: episodes
   }
 }
 
@@ -77,74 +62,6 @@ export function removeShow(id) {
       .then(res => res.json())
         .then((json) => {
           dispatch(fetchedShows(json))
-        })
-  }
-}
-
-export function addEpisode(episode) {
-  return function (dispatch) {
-    dispatch(fetchingShows())
-    return fetch("http://localhost:3000/episodes", {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        'body': episode
-    })
-      .then(res => res.json())
-        .then((json) => {
-          dispatch(fetchedEpisodes(json))
-        })
-  }
-}
-
-export function removeEpisode(id) {
-  return function (dispatch) {
-    dispatch(fetchingShows())
-    const body = id
-    return fetch(`http://localhost:3000/${userId}/user_episodes`, {
-        method: "DELETE",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        'body': body
-    })
-      .then(res => res.json())
-        .then((json) => {
-          dispatch(fetchedEpisodes(json))
-        })
-  }
-}
-
-export function fetchMyLineup(id) {
-  return function(dispatch) {
-    dispatch(fetchingShows())
-    fetch(`http://localhost:3000/${userId}/episodes`, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        dispatch(fetchedEpisodes(json))
-      })
-  }
-}
-
-export function fetchShowEpisodes(id) {
-  return function(dispatch) {
-    dispatch(fetchingShows())
-    fetch(`https://api.tvmaze.com/shows/${id}/episodes`)
-      .then(res => res.json())
-      .then(json => json.reverse())
-        .then(json => {
-          dispatch(fetchedShowEpisodes(json))
         })
   }
 }

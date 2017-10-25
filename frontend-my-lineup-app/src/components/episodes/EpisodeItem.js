@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/shows'
+import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/episodes'
 import { formatSummaryShort } from '../../services/formatting'
 import { Card, Button, Image, Transition } from 'semantic-ui-react'
 import moment from 'moment'
@@ -66,8 +66,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    myLineup: state.show.myLineup,
-    isFetching: state.show.isFetching
+    myLineup: state.episode.myLineup,
+    isFetching: state.episode.isFetching
   }
 }
 

@@ -64,7 +64,7 @@ class DashboardOnTonightList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    myLineup: state.show.myLineup,
+    myLineup: state.episode.myLineup,
     onTonight: state.show.onTonight
   }
 }

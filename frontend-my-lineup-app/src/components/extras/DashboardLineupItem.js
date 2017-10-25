@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { removeEpisode } from '../../actions/shows'
+import { removeEpisode } from '../../actions/episodes'
 import { formatSummaryShort } from '../../services/formatting'
 import { Card, Button, Image, Transition } from 'semantic-ui-react'
 import moment from 'moment'

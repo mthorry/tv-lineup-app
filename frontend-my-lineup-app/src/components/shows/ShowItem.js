@@ -22,8 +22,8 @@ class ShowItem extends React.Component {
   render() {
     const s = this.props.show
     const user_show = this.props.ratings.filter( show => {return show.show_id == this.props.show.id})
-    let rating = ""
-      if (user_show.length > 0) { rating = <h4>My Rating: <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star'/></h4> }
+    // let rating = ""
+    //   if (user_show.length > 0) { rating = <h4>My Rating: <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star'/></h4> }
 
     let title = ""
       if (s) { title = formatTitle(s.title) }
@@ -41,7 +41,7 @@ class ShowItem extends React.Component {
           <Card.Header as='h3'><Link to={`/shows/${s.id}/${title}`}>{s.title}</Link></Card.Header>
           <img src={s.img} alt={s.title} width="250"/>
           { s.status === "Running" ? <h3>Airs {s.air_day}s {show_time} on {s.network}</h3> : <h3>{s.status}</h3> }
-            {rating}
+            My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' /> : <Rating maxRating={5} onRate={this.handleRate} rating={null} icon='star' /> }
           <Card.Description>Genre: {s.genre}</Card.Description>
           <Card.Description>Rating: {s.rating}</Card.Description>
         </Card.Content>

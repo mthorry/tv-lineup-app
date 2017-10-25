@@ -4,7 +4,8 @@ import React from 'react'
 import { Divider, Modal, Button, Transition } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { formatSummary } from '../../services/formatting'
-import { addShow, addEpisode, removeEpisode, fetchMyLineup, fetchOnTonight } from '../../actions/shows'
+import { addEpisode, removeEpisode, fetchMyLineup } from '../../actions/episodes'
+import { addShow, fetchOnTonight } from '../../actions/shows'
 require('react-big-calendar/lib/css/react-big-calendar.css')
 
 BigCalendar.momentLocalizer(moment)
@@ -152,7 +153,7 @@ class ShowCalendar extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    myLineup: state.show.myLineup,
+    myLineup: state.episode.myLineup,
     onTonight: state.show.onTonight
   }
 }

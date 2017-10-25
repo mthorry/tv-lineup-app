@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addSuggestedShow, addEpisode, fetchMyLineup, fetchPremieres } from '../../actions/shows'
+import { addSuggestedShow, fetchPremieres } from '../../actions/shows'
+import { addEpisode, fetchMyLineup } from '../../actions/episodes'
 import { Divider, Modal, Button, Transition } from 'semantic-ui-react'
 import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
@@ -103,7 +104,7 @@ class PremieresContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     premieres: state.show.premieres,
-    myLineup: state.show.myLineup
+    myLineup: state.episode.myLineup
   }
 }
 

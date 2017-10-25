@@ -26,7 +26,7 @@ class DashboardLineupList extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    myLineup: state.show.myLineup,
+    myLineup: state.episode.myLineup,
   }
 }
 

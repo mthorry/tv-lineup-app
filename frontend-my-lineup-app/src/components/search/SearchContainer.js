@@ -58,7 +58,6 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     results: state.search.results,
-    myShows: state.show.myShows,
     fetching: state.search.isFetching
   }
 }

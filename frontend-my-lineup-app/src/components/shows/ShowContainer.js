@@ -12,15 +12,19 @@ import EpisodeContainer from '../episodes/EpisodeContainer'
 class ShowContainer extends React.Component {
 
   componentDidMount() {
-    const userId = localStorage.getItem("id")
-    this.props.myShows.length > 0 ? null : this.props.fetchShows(userId)
-    this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
-    this.props.ratings.length > 0 ? null : this.props.fetchUserShows()
-    this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
-    this.props.premieres.length > 0 ? null : this.props.fetchPremieres()
+
   }
 
   render() {
+    const userId = localStorage.getItem("id")
+    if (userId !== null ) {
+      this.props.myShows.length > 0 ? null : this.props.fetchShows(userId)
+      this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
+    }
+    this.props.ratings.length > 0 ? null : this.props.fetchUserShows()
+    this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
+    this.props.premieres.length > 0 ? null : this.props.fetchPremieres()
+
     return(
       <div>
         <Route exact path='/shows' component={ShowList} />

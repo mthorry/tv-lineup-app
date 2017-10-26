@@ -1,10 +1,10 @@
 import moment from 'moment';
 const token = localStorage.getItem("jwtToken")
-const userId = localStorage.getItem("id")
+const headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}
 
-function fetchingTrendingShows() {
+function fetchingShows() {
   return {
-    type: "FETCHING_TRENDING_SHOWS"
+    type: "FETCHING_EXTRA_SHOWS"
   }
 }
 
@@ -32,14 +32,10 @@ export function fetchedUserShows(userShows) {
 export function fetchTrendingShows() {
   return function (dispatch) {
     const body = JSON.stringify("trending")
-    dispatch(fetchingTrendingShows())
+    dispatch(fetchingShows())
     return fetch("http://localhost:3000/trending", {
         method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: headers,
         'body': body
     })
       .then(res => res.json())
@@ -51,14 +47,10 @@ export function fetchTrendingShows() {
 
 export function fetchWatchingShows(period) {
   return function (dispatch) {
-    dispatch(fetchingTrendingShows())
+    dispatch(fetchingShows())
     return fetch("http://localhost:3000/watching", {
         method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: headers,
         'body': period
     })
       .then(res => res.json())
@@ -70,14 +62,11 @@ export function fetchWatchingShows(period) {
 
 export function rateShow(info) {
   return function (dispatch) {
-    dispatch(fetchingTrendingShows())
+    let userId = localStorage.getItem("id")
+    dispatch(fetchingShows())
     return fetch(`http://localhost:3000/${userId}/ratings`, {
         method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: headers,
         'body': info
     })
       .then(res => res.json())
@@ -89,13 +78,10 @@ export function rateShow(info) {
 
 export function fetchUserShows() {
   return function (dispatch) {
-    dispatch(fetchingTrendingShows())
+    let userId = localStorage.getItem("id")
+    dispatch(fetchingShows())
     return fetch(`http://localhost:3000/${userId}/ratings`, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+        headers: headers
     })
       .then(res => res.json())
         .then((json) => {

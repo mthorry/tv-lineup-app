@@ -49,28 +49,26 @@ class ShowPage extends React.Component {
             </Grid.Row>
 
             <Grid.Row stretched>
-
               My Rating: { user_show !== undefined && user_show.length > 0 ? <Rating maxRating={5} onRate={this.handleRate} rating={user_show[0].rating} icon='star' size='massive'/> : <Rating maxRating={5} onRate={this.handleRate} rating={null} icon='star' size='massive'/> }
-
-                <Statistic size='tiny' color='olive'>
-                  <Statistic.Value>{show.rating}</Statistic.Value>
-                  <Statistic.Label>Rating</Statistic.Label>
-                </Statistic>
+              <Statistic size='tiny' color='olive'>
+                <Statistic.Value>{show.rating}</Statistic.Value>
+                <Statistic.Label>Rating</Statistic.Label>
+              </Statistic>
                 {' '}
-                <Statistic size='tiny' color='teal'>
-                  <Statistic.Value>{show.genre}</Statistic.Value>
-                  <Statistic.Label>Genre</Statistic.Label>
-                </Statistic>
-              </Grid.Row>
+              <Statistic size='tiny' color='teal'>
+                <Statistic.Value>{show.genre}</Statistic.Value>
+                <Statistic.Label>Genre</Statistic.Label>
+              </Statistic>
+            </Grid.Row>
 
-              <Grid.Row>
-                <br/>
-                { show.status === "Running" ? <h4>Airs {show.air_day}s at {show_time} on {show.network}</h4> : <h4><strong>{show.status}</strong></h4> }
-                <p>Summary: {summary} </p>
-                <br/>
-                { show.url ? <Button basic color='teal' as='a' href={show.url} target='_blank' icon='external' content='Official Website'/> : null }
-                <Button basic color='yellow' icon='remove' content='Remove' onClick={this.handleClick}/>
-              </Grid.Row>
+            <Grid.Row>
+              <br/>
+              { show.status === "Running" ? <h4>Airs {show.air_day}s at {show_time} on {show.network}</h4> : <h4><strong>{show.status}</strong></h4> }
+              <p>Summary: {summary} </p>
+              <br/>
+              { show.url ? <Button basic color='teal' as='a' href={show.url} target='_blank' icon='external' content='Official Website'/> : null }
+              <Button basic color='yellow' icon='remove' content='Remove' onClick={this.handleClick}/>
+            </Grid.Row>
 
           </Grid.Column>
         </Grid></Transition>)}
@@ -99,27 +97,8 @@ function mapStateToProps(state) {
   return {
     myShows: state.show.myShows,
     ratings: state.extras.ratings,
-    myLineup: state.episode.myLineup,
+    myLineup: state.episode.myLineup
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShowPage)
-
-// import React from 'react'
-// import { Link } from 'react-router-dom'
-
-// class ShowPage extends React.Component {
-//   render(){
-//     const name = this.props.match.params.name
-//     return(
-//       <div>
-//       <p>ShowPage {name}</p>
-//       </div>
-//     )
-//   }
-// }
-
-// export default ShowPage
-
-// "How To Get Away With Murder".toLowerCase().split(" ").join("-")
-// https://api.trakt.tv/shows/how-to-get-away-with-murder?extended=full

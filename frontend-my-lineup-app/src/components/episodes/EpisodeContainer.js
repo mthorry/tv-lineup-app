@@ -11,7 +11,6 @@ class EpisodeContainer extends React.Component {
     this.props.fetchShowEpisodes(this.props.match.params.id)
   }
 
-
   render(){
     const name = this.props.match.params.name
     const id = this.props.match.params.id
@@ -28,7 +27,6 @@ class EpisodeContainer extends React.Component {
       </div>
     )
   }
-
 }
 
 function mapStateToProps(state) {
@@ -44,7 +42,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(fetchShowEpisodes(id))
     }
   }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EpisodeContainer)

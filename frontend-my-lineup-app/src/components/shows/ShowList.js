@@ -29,4 +29,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, /*mapDispatchToProps*/)(ShowList)
+export default connect(mapStateToProps)(ShowList)

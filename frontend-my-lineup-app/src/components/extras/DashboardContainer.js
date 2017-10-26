@@ -9,13 +9,12 @@ import { Divider, Loader } from 'semantic-ui-react'
 class DashboardContainer extends React.Component {
 
   componentDidMount() {
-    const userId = localStorage.getItem("id")
-    this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
-    this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
   }
 
-
   render(){
+    const userId = localStorage.getItem("id")
+    this.props.myLineup.length > 0 && userId !== null ? null : this.props.fetchMyLineup(userId)
+    this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
     return(
       <div>
         <br/>
@@ -28,7 +27,6 @@ class DashboardContainer extends React.Component {
       </div>
     )
   }
-
 }
 
 function mapStateToProps(state) {
@@ -48,7 +46,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(fetchOnTonight())
     }
   }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer)

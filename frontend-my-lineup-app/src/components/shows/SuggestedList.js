@@ -4,8 +4,6 @@ import { formatTime } from '../../services/formatting'
 import { addSuggestedShow } from '../../actions/shows'
 import { Card, Button, Loader, Transition } from 'semantic-ui-react'
 
-// EPISODE CONTAINER = PARENT
-
 class SuggestedList extends React.Component {
 
   state = {
@@ -27,13 +25,12 @@ class SuggestedList extends React.Component {
         'Authorization': `Bearer ${token}`
       },
       'body': body
-        })
-      .then(res => res.json())
-          .then(json =>
-            this.setState({
-              recommend: json
-            })
-          ).catch(error => (console.error("there was a problem:", error)))
+    }).then(res => res.json())
+        .then(json =>
+          this.setState({
+            recommend: json
+          })
+        ).catch(error => (console.error("there was a problem:", error)))
   }
 
   render(){
@@ -72,11 +69,10 @@ class SuggestedList extends React.Component {
     )
   }
 }
-        // <SuggestedShowPage />
 
 function mapStateToProps(state) {
   return {
-    myShows: state.show.myShows,
+    myShows: state.show.myShows
   }
 }
 

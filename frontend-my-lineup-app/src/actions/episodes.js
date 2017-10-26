@@ -1,13 +1,6 @@
 import moment from 'moment';
 const token = localStorage.getItem("jwtToken")
-const userId = localStorage.getItem("id")
-
-export function fetchedEpisodes(episodes) {
-  return {
-    type: "FETCHED_MY_EPISODES",
-    payload: episodes
-  }
-}
+const headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}
 
 
 function fetchingEpisodes() {
@@ -16,7 +9,14 @@ function fetchingEpisodes() {
   }
 }
 
-export function fetchedShowEpisodes(episodes) {
+function fetchedMyEpisodes(episodes) {
+  return {
+    type: "FETCHED_MY_EPISODES",
+    payload: episodes
+  }
+}
+
+function fetchedShowEpisodes(episodes) {
   return {
     type: "FETCHED_SHOW_EPISODES",
     payload: episodes
@@ -28,16 +28,12 @@ export function addEpisode(episode) {
     dispatch(fetchingEpisodes())
     return fetch("http://localhost:3000/episodes", {
         method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: headers,
         'body': episode
     })
       .then(res => res.json())
         .then((json) => {
-          dispatch(fetchedEpisodes(json))
+          dispatch(fetchedMyEpisodes(json))
         })
   }
 }
@@ -45,19 +41,16 @@ export function addEpisode(episode) {
 export function removeEpisode(id) {
   return function (dispatch) {
     dispatch(fetchingEpisodes())
+    let userId = localStorage.getItem("id")
     const body = id
     return fetch(`http://localhost:3000/${userId}/user_episodes`, {
         method: "DELETE",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: headers,
         'body': body
     })
       .then(res => res.json())
         .then((json) => {
-          dispatch(fetchedEpisodes(json))
+          dispatch(fetchedMyEpisodes(json))
         })
   }
 }
@@ -65,16 +58,13 @@ export function removeEpisode(id) {
 export function fetchMyLineup(id) {
   return function(dispatch) {
     dispatch(fetchingEpisodes())
+    let userId = localStorage.getItem("id")
     fetch(`http://localhost:3000/${userId}/episodes`, {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
+      headers: headers
     })
       .then((res) => res.json())
       .then((json) => {
-        dispatch(fetchedEpisodes(json))
+        dispatch(fetchedMyEpisodes(json))
       })
   }
 }

@@ -10,7 +10,6 @@ class TrendingContainer extends React.Component {
     this.props.trending.length < 1 ? this.props.fetchTrendingShows() : null
   }
 
-
   render(){
     let shows = <Loader active inline='centered' size='large'/>
 
@@ -26,7 +25,6 @@ class TrendingContainer extends React.Component {
       </div>
     )
   }
-
 }
 
 function mapStateToProps(state) {
@@ -42,7 +40,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(fetchTrendingShows())
     }
   }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TrendingContainer)

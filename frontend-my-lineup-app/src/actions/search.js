@@ -1,12 +1,15 @@
+const token = localStorage.getItem("jwtToken")
+const headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`}
 
-export function fetchingResults() {
+
+function fetchingResults() {
   return {
     type: "FETCHING_RESULTS"
   }
 }
 
 
-export function fetchedResults(results) {
+function fetchedResults(results) {
   return {
     type: "FETCHED_RESULTS",
     payload: results
@@ -23,15 +26,10 @@ export function clearResults() {
 export function searchShows(search) {
   return function (dispatch) {
     dispatch(fetchingResults())
-    const token = localStorage.getItem("jwtToken")
     const body = JSON.stringify({search: search})
     return fetch("http://localhost:3000/search", {
         method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: headers,
         'body': body
     })
       .then(res => res.json())

@@ -37,7 +37,6 @@ class EpisodeList extends React.Component {
     }, () => this.paginate())
   }
 
-
   render(){
     let episodes = ""
     if (this.state.displayedItems && this.props.myLineup) {episodes = this.state.displayedItems.map( episode => <EpisodeItem key={episode.id} episode={episode} showId={this.props.id} added={this.props.myLineup.filter(myEpisode => myEpisode.id == episode.id)} /> )}
@@ -61,7 +60,7 @@ class EpisodeList extends React.Component {
 function mapStateToProps(state) {
   return {
     myLineup: state.episode.myLineup,
-    showEpisodes: state.episode.showEpisodes,
+    showEpisodes: state.episode.showEpisodes
   }
 }
 

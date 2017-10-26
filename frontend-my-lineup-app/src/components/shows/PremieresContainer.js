@@ -16,13 +16,11 @@ class PremieresContainer extends React.Component {
     this.props.premieres.length > 0 ? null : this.props.fetchPremieres()
   }
 
-
   handleAdd = (event, episode) => {
     event.preventDefault()
     this.props.addSuggestedShow({id: episode.episode.show_id})
     this.close()
   }
-
 
   addEpisode = (ep) => {
     this.props.addEpisode(ep)

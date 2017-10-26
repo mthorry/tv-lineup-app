@@ -10,14 +10,11 @@ require('react-big-calendar/lib/css/react-big-calendar.css')
 
 BigCalendar.momentLocalizer(moment)
 
-
 class ShowCalendar extends React.Component {
   state = { open: false }
 
   componentDidMount() {
-    const userId = localStorage.getItem("id")
-    this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
-    this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
+
   }
 
   handleAdd = (event, episode) => {
@@ -44,36 +41,38 @@ class ShowCalendar extends React.Component {
   close = () => this.setState({ open: false })
 
   eventStyleGetter = (event, start, end, isSelected) => {
-      console.log(event)
-      var style = {
-          backgroundColor: '#20b2aa',
-          borderRadius: '5px',
-          borderColor: 'white',
-          color: 'white',
-          display: 'block',
-      }
-      return {
-          style: style
-      }
+    var style = {
+        backgroundColor: '#20b2aa',
+        borderRadius: '5px',
+        borderColor: 'white',
+        color: 'white',
+        display: 'block',
+    }
+    return {
+        style: style
+    }
   }
 
   render() {
-      const { open, episode } = this.state
+    const userId = localStorage.getItem("id")
+    this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
+    this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
+    const { open, episode } = this.state
 
-      let events = this.props.myLineup.map( episode => {
-        let d = new Date(episode.airstamp)
-        let summary = "Unavailable 🤷"
-        episode.summary !== null ? summary = formatSummary(episode.summary) : null
+    let events = this.props.myLineup.map( episode => {
+      let d = new Date(episode.airstamp)
+      let summary = "Unavailable 🤷"
+      episode.summary !== null ? summary = formatSummary(episode.summary) : null
 
-        return {
-          title: episode.show_title + ": " + episode.title + " " +(episode.show ? ('on ' +episode.show.network) : null),
-          startDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()),
-          endDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()+episode.runtime),
-          url: episode.url,
-          summary: summary,
-          id: episode.id
-        }
-      })
+      return {
+        title: episode.show_title + ": " + episode.title + " " +(episode.show ? ('on ' +episode.show.network) : null),
+        startDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()),
+        endDate: new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes()+episode.runtime),
+        url: episode.url,
+        summary: summary,
+        id: episode.id
+      }
+    })
 
       let ids = this.props.myLineup.map(show => show.id)
       let eps = this.props.onTonight.filter(episode => episode.show.rating.average > 7.5 && !ids.includes(episode.id))
@@ -149,7 +148,6 @@ class ShowCalendar extends React.Component {
     )
   }
 }
-
 
 function mapStateToProps(state) {
   return {

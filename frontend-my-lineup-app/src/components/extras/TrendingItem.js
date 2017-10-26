@@ -3,6 +3,7 @@ import { Item, Statistic, Button, Segment, Transition } from 'semantic-ui-react'
 import { formatTime } from '../../services/formatting'
 
 export default class TrendingItem extends React.Component {
+
   render(){
     let show = this.props.show.show
     let video_id = ""
@@ -15,7 +16,14 @@ export default class TrendingItem extends React.Component {
           <Item.Header><h2><em>{show.title} on {show.network}</em></h2></Item.Header>
           {' '}
           <Segment floated='right'>
-            <iframe id="ytplayer" type="text/html" width="355" height="200" src={`https://www.youtube.com/embed/${video_id}`} frameBorder="0"></iframe>
+            <iframe
+              id="ytplayer"
+              type="text/html"
+              width="355"
+              height="200"
+              src={`https://www.youtube.com/embed/${video_id}`}
+              frameBorder="0">
+            </iframe>
           </Segment>
           <Statistic.Group widths={3}>
             <Statistic size='small' color='teal'>

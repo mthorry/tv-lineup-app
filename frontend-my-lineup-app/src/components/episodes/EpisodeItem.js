@@ -13,13 +13,13 @@ class EpisodeItem extends React.Component {
     let id = this.props.showId
     const episode = JSON.stringify({episode: ep, show_id: id})
     this.props.addEpisode(episode)
-    }
+  }
 
   removeEpisode = (e) => {
     e.preventDefault()
     const id = JSON.stringify({episode_id: this.props.episode.id})
     this.props.removeEpisode(id)
-    }
+  }
 
   render(){
     const ep = this.props.episode

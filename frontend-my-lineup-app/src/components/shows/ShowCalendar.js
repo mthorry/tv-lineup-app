@@ -16,8 +16,8 @@ class ShowCalendar extends React.Component {
 
   componentDidMount() {
     const userId = localStorage.getItem("id")
-    this.props.myLineup.length > 0 ? null : this.props.fetchMyLineup(userId)
-    this.props.onTonight.length > 0 ? null : this.props.fetchOnTonight()
+    this.props.fetchMyLineup(userId)
+    this.props.fetchOnTonight()
   }
 
   handleAdd = (event, episode) => {
@@ -44,7 +44,6 @@ class ShowCalendar extends React.Component {
   close = () => this.setState({ open: false })
 
   eventStyleGetter = (event, start, end, isSelected) => {
-      console.log(event)
       var style = {
           backgroundColor: '#20b2aa',
           borderRadius: '5px',

@@ -32,7 +32,6 @@ class PremieresContainer extends React.Component {
   close = () => this.setState({ open: false })
 
   eventStyleGetter = (event, start, end, isSelected) => {
-      console.log(event)
       var style = {
           backgroundColor: '#8fbc8f',
           borderRadius: '5px',

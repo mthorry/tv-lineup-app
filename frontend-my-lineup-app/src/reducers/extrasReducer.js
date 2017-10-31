@@ -1,4 +1,4 @@
-function extrasReducer(state = { trending: [], popular: [], ratings: [], watching: [], isFetching: false}, action) {
+function extrasReducer(state = { trending: [], ratings: [], watching: [], isFetching: false}, action) {
   switch (action.type) {
 
     case "FETCHED_TRENDING_SHOWS":

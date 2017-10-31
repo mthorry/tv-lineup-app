@@ -1,4 +1,5 @@
-import moment from 'moment';
+import moment from 'moment'
+import baseURL from '../services/url'
 const token = localStorage.getItem("jwtToken")
 const userId = localStorage.getItem("id")
 
@@ -33,7 +34,7 @@ export function fetchTrendingShows() {
   return function (dispatch) {
     const body = JSON.stringify("trending")
     dispatch(fetchingTrendingShows())
-    return fetch("http://localhost:3000/trending", {
+    return fetch(`${baseURL}/trending`, {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -52,7 +53,7 @@ export function fetchTrendingShows() {
 export function fetchWatchingShows(period) {
   return function (dispatch) {
     dispatch(fetchingTrendingShows())
-    return fetch("http://localhost:3000/watching", {
+    return fetch(`${baseURL}/watching`, {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -71,7 +72,7 @@ export function fetchWatchingShows(period) {
 export function rateShow(info) {
   return function (dispatch) {
     dispatch(fetchingTrendingShows())
-    return fetch(`http://localhost:3000/${userId}/ratings`, {
+    return fetch(`${baseURL}/${userId}/ratings`, {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -90,7 +91,7 @@ export function rateShow(info) {
 export function fetchUserShows() {
   return function (dispatch) {
     dispatch(fetchingTrendingShows())
-    return fetch(`http://localhost:3000/${userId}/ratings`, {
+    return fetch(`${baseURL}/${userId}/ratings`, {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

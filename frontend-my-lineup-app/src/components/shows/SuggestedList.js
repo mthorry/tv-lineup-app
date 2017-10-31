@@ -19,7 +19,7 @@ class SuggestedList extends React.Component {
   componentDidMount = () => {
     let token = localStorage.getItem("jwtToken")
     let body = JSON.stringify(this.props.show)
-    return fetch("http://localhost:3000/recommend", {
+    return fetch("https://my-lineup-backend.herokuapp.com/recommend", {
       method: "POST",
       headers: {
         'Accept': 'application/json',

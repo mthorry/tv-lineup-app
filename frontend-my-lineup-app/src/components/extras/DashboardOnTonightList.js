@@ -12,7 +12,7 @@ class DashboardOnTonightList extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.paginate(), 1000)
+    if (this.props.myLineup.length > 0) {this.paginate()}
   }
 
   paginate = () => {

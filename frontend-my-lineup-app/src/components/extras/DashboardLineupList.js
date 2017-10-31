@@ -8,15 +8,16 @@ class DashboardLineupList extends React.Component {
 
   render(){
     let d = moment(new Date())
-    let tonight = this.props.myLineup.filter(episode => d.diff(moment(episode.airstamp), 'days', true) <= 0 && d.diff(moment(episode.airstamp), 'days', true) >= -1)
+    let tonight = ""
+    if (this.props.myLineup.length > 0 ) { tonight = this.props.myLineup.filter(episode => d.diff(moment(episode.airstamp), 'days', true) <= 0 && d.diff(moment(episode.airstamp), 'days', true) >= -1) }
 
     let episodes = ""
-    if (this.props.myLineup) {episodes = tonight.reverse().map( episode => <DashboardLineupItem key={episode.id} episode={episode} showId={this.props.id} /> )}
+    if (this.props.myLineup.length > 0 ) { episodes = tonight.reverse().map( episode => <DashboardLineupItem key={episode.id} episode={episode} showId={this.props.id} /> )}
 
     return(
       <div>
         <Card.Group>
-        { episodes}
+        { episodes }
         </Card.Group>
         <br/>
       </div>

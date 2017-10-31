@@ -1,4 +1,5 @@
-import moment from 'moment';
+import moment from 'moment'
+import baseURL from '../services/url'
 const token = localStorage.getItem("jwtToken")
 const userId = localStorage.getItem("id")
 
@@ -26,7 +27,7 @@ export function fetchedShowEpisodes(episodes) {
 export function addEpisode(episode) {
   return function (dispatch) {
     dispatch(fetchingEpisodes())
-    return fetch("http://localhost:3000/episodes", {
+    return fetch(`${baseURL}/episodes`, {
         method: "POST",
         headers: {
           'Accept': 'application/json',
@@ -46,7 +47,7 @@ export function removeEpisode(id) {
   return function (dispatch) {
     dispatch(fetchingEpisodes())
     const body = id
-    return fetch(`http://localhost:3000/${userId}/user_episodes`, {
+    return fetch(`${baseURL}/${id}/user_episodes`, {
         method: "DELETE",
         headers: {
           'Accept': 'application/json',
@@ -65,7 +66,7 @@ export function removeEpisode(id) {
 export function fetchMyLineup(id) {
   return function(dispatch) {
     dispatch(fetchingEpisodes())
-    fetch(`http://localhost:3000/${userId}/episodes`, {
+    fetch(`${baseURL}/${userId}/episodes`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

@@ -1,6 +1,8 @@
+import baseURL from '../../services/url'
+
 export function loginUser(loginParams){
   const body = JSON.stringify(loginParams)
-  return fetch("http://localhost:3000/login", {
+  return fetch(`${baseURL}/login`, {
       method: 'post',
       body: body,
       headers: {
@@ -16,7 +18,7 @@ export function loginUser(loginParams){
 
 export function signupUser(signupParams){
   const body = JSON.stringify(signupParams)
-  return fetch("http://localhost:3000/signup", {
+  return fetch(`${baseURL}/signup`, {
       method: 'post',
       body: body,
       headers: {

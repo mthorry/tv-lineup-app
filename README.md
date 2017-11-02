@@ -5,7 +5,7 @@ For a full description of the app, please go [here](https://medium.com/@mthorry/
 
 ## Backend
 I created the backend of my app using Ruby on Rails. I used two different APIs in order to get the TV data: trakt.tv API and TVmaze API and fetch requests are done from the backend.
-The models are `User`, `Show`, `Episode`, `UserShow`, `UserEpisode`. A `User` can have many shows, and many episodes through shows. They can also have many user_shows and user_episodes (for ratings, etc).
+The models are `User`, `Show`, `Episode`, `UserShow`, `UserEpisode`. A `User` can have many shows, and many episodes through shows. They can also have many `user_shows` and `user_episodes` (for ratings, etc).
 All models required a controller as CRUD actions are available to all models.
 
 ## Frontend

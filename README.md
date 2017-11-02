@@ -1,5 +1,5 @@
 # My Lineup App 📺
-Ruby on Rails backend with React/Redux frontend. Users can save their favorite shows and add episodes to their lineup. They can view their lineup in a calendar format to see when and where their tv shows air. Users can also see trending and most watched shows as well as shows premiering that week.
+Ruby on Rails backend with React/Redux frontend. Users can save their favorite shows and add episodes to their lineup. They can view their lineup in a calendar format to see when and where their tv shows air. Users can also see trending and most watched shows as well as shows premiering that week. This project was created independently by me, Matthew Thorry, as my final app at Flatiron School.
 
 For a full description of the app, please go [here](https://medium.com/@mthorry/my-first-redux-app-with-a-rails-backend-4cf59332a994) to read about it on my blog.
 

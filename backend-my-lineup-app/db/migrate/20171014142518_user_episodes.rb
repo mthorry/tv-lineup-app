@@ -5,7 +5,7 @@ class UserEpisodes < ActiveRecord::Migration[5.1]
       t.integer :user_id
       t.integer :episode_id
       t.string :rating
-      t.boolean :watched
+      t.boolean :watched, default: false
     end
   end
 end

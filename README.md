@@ -1,11 +1,11 @@
 # My Lineup App 📺
-Ruby on Rails backend with React/Redux frontend. Users can save their favorite shows and add episodes to their lineup. They can view their lineup in a calendar format to see when and where their tv shows air. Users can also see trending and most watched shows as well as shows premiering that week.
+Ruby on Rails backend with React/Redux frontend. Users can save their favorite shows and add episodes to their lineup. They can view their lineup in a calendar format to see when and where their tv shows air. Users can also see trending and most watched shows as well as shows premiering that week. This project was created independently by me, Matthew Thorry, as my final app at Flatiron School for their Software Engineering Immersive Program.
 
-For a full description of the app, please go [here](https://medium.com/@mthorry/my-first-redux-app-with-a-rails-backend-4cf59332a994) to read about it on my blog.
+For a full description of the app, please go [here](https://medium.com/@mthorry/my-first-redux-app-with-a-rails-backend-4cf59332a994) to read about it on my blog. 
 
 ## Backend
 I created the backend of my app using Ruby on Rails. I used two different APIs in order to get the TV data: trakt.tv API and TVmaze API and fetch requests are done from the backend.
-The models are `User`, `Show`, `Episode`, `UserShow`, `UserEpisode`. A `User` can have many shows, and many episodes through shows. They can also have many user_shows and user_episodes (for ratings, etc).
+The models are `User`, `Show`, `Episode`, `UserShow`, `UserEpisode`. A `User` can have many shows, and many episodes through shows. They can also have many `user_shows` and `user_episodes` (for ratings, etc).
 All models required a controller as CRUD actions are available to all models.
 
 ## Frontend
@@ -37,3 +37,6 @@ Responsible for fetching and displaying extra information from the trakt.tv API.
 **`TrendingContainer`** calls the trakt.tv API to get latest trending shows and is the parent of `TrendingItem` which displays each result of the query. 
 
 **`MostWatchedContainer`** calls the trakt.tv API to get most watched shows and is the parent of `MostWatchedItem` which displays each result of the query. A user can also filter results based on specified times (week, month, year, ever).
+
+## Acknowledgements
+My classmates at Flatiron School are always the best and most helpful, so thank you! Also thank you to my instructors Johann Kerr, Lindsey Wells and Andrew Cohn for always being an amazing second set of eyes for my work.
